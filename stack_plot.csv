@@ -1,0 +1,31 @@
+Trait,Source,Variance
+Vocabulary,Common genetic,25.6
+Vocabulary,Pedigree genetic,30.1
+Vocabulary,Family,0
+Vocabulary,Sibling,7.3
+Vocabulary,Couple,27.4
+Logical memory,Common genetic,11.9
+Logical memory,Pedigree genetic,20.3
+Logical memory,Family,0
+Logical memory,Sibling,5.4
+Logical memory,Couple,0
+Executive functions,Common genetic,18.9
+Executive functions,Pedigree genetic,27.1
+Executive functions,Family,0
+Executive functions,Sibling,5
+Executive functions,Couple,14.7
+g,Common genetic,22.7
+g,Pedigree genetic,31.3
+g,Family,0
+g,Sibling,9.2
+g,Couple,22.1
+Digit symbol,Common genetic,21.4
+Digit symbol,Pedigree genetic,14.7
+Digit symbol,Family,0
+Digit symbol,Sibling,8.1
+Digit symbol,Couple,13.2
+Education,Common genetic,15.6
+Education,Pedigree genetic,28.1
+Education,Family,0
+Education,Sibling,11.4
+Education,Couple,31.3

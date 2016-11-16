@@ -1,0 +1,41 @@
+Trait,Source,Variance,Standard.Error
+Vocabulary,Common genetic,25.6,2
+Vocabulary,Pedigree genetic,30.1,2.8
+Vocabulary,Family,0,0
+Vocabulary,Sibling,7.3,1.3
+Vocabulary,Couple,27.4,1.9
+Logical memory,Common genetic,11.9,2
+Logical memory,Pedigree genetic,20.3,2.8
+Logical memory,Family,0,0
+Logical memory,Sibling,5.4,1.4
+Logical memory,Couple,0,0
+Verbal fluency,Common genetic,18.9,2.1
+Verbal fluency,Pedigree genetic,27.1,2.9
+Verbal fluency,Family,0,0
+Verbal fluency,Sibling,5,1.3
+Verbal fluency,Couple,14.7,2.1
+g,Common genetic,22.7,2.1
+g,Pedigree genetic,31.3,2.9
+g,Family,0,0
+g,Sibling,9.2,1.3
+g,Couple,22.1,2
+Digit symbol,Common genetic,21.4,2.1
+Digit symbol,Pedigree genetic,14.7,2.8
+Digit symbol,Family,0,0
+Digit symbol,Sibling,8.1,1.3
+Digit symbol,Couple,13.2,2.3
+Education,Common genetic,15.6,2.1
+Education,Pedigree genetic,28.1,3
+Education,Family,0,0
+Education,Sibling,11.4,1.4
+Education,Couple,31.3,2
+Neuroticism,Common genetic,10.8,2
+Neuroticism,Pedigree genetic,19.2,2.5
+Neuroticism,Family,0,0
+Neuroticism,Sibling,0,0
+Neuroticism,Couple,0,0
+Extraversion,Common genetic,13,1.7
+Extraversion,Pedigree genetic,0,0
+Extraversion,Family,9,1.1
+Extraversion,Sibling,0,0
+Extraversion,Couple,0,0
