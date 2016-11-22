@@ -1,3 +1,4 @@
+library(dplyr)
 library(ggplot2)
 x <- read.table("stack_plot_with_pers.csv", sep = ",", header = T, skip = 0)
 x$Trait = factor(x$Trait, levels = c("g", "Education", "Vocabulary", "Digit symbol", "Verbal fluency","Logical memory", "Neuroticism", "Extraversion"))
@@ -26,7 +27,6 @@ panel.grid.minor = element_blank(),
 
 x$Trait = factor(x$Trait, levels = rev(c("g", "Education", "Vocabulary", "Digit symbol", "Verbal fluency","Logical memory", "Neuroticism", "Extraversion")))
 x$Source = factor(x$Source, levels = rev(c("Common genetic","Pedigree genetic","Family","Sibling","Couple")))
-library(dplyr)
 y = x %>% bind_rows(x %>% group_by(Trait) %>%
 	summarise(Variance = sum(Variance)) %>% mutate(Source = "Total"))
 y$Source = factor(y$Source, levels = c("Common genetic","Pedigree genetic","Family","Sibling","Couple", "Total"))
@@ -68,33 +68,96 @@ x %>% group_by(Trait) %>%
 library(ggplot2)
 x <- read.table("stack_plot_with_pers.csv", sep = ",", header = T, skip = 0)
 x$Trait = factor(x$Trait, levels = c("g", "Education", "Vocabulary", "Digit symbol", "Verbal fluency","Logical memory", "Neuroticism", "Extraversion"))
-x$Source = factor(x$Source, levels = c("Common genetic","Pedigree genetic","Family","Sibling","Couple"))
-x$Trait = factor(x$Trait, levels = rev(c("g", "Education", "Vocabulary", "Digit symbol", "Verbal fluency","Logical memory", "Neuroticism", "Extraversion")))
 x$Source = factor(x$Source, levels = rev(c("Common genetic","Pedigree genetic","Family","Sibling","Couple")))
+x$Phenotypes = x$Source
+y = x
+y$Phenotypes = "Total"
+y$Standard.Error = NA
+z = bind_rows(x, y)
+z$Phenotypes = factor(z$Phenotypes, rev(c("Common genetic","Pedigree genetic","Family","Sibling","Couple","Total")))
+str(y$Phenotypes)
 
 barwidth = 0.7
-ggplot(x,aes(x = Trait, y = Variance,fill = Source)) +
-	geom_bar(position = position_stack(), stat = "identity", width = barwidth, alpha = 0.5) +
-	geom_bar(position = position_dodge(width = barwidth),stat = "identity", width = barwidth) +
+stack_dodge = ggplot(z,aes(x = Phenotypes, y = Variance,fill = Source)) +
+	geom_col(width = barwidth, alpha = 0.7) +
 	geom_linerange(aes(ymin = Variance - Standard.Error, ymax = Variance + Standard.Error),
 								 position = position_dodge(width = barwidth),stat = "identity") +
-	theme_bw() + theme(axis.line.x = element_line(colour = "black"),axis.line.y = element_line(colour = "black"),  panel.border = element_blank(), panel.grid.major.y = element_blank(),
-										 panel.grid.minor.y = element_blank(),
-										 axis.title.x = element_text(face="bold", colour='black', size=25),
-										 axis.text.x  = element_text(size=28, colour='black'),
-										 axis.title.y = element_text(face="bold", colour='black', size=25),
-										 axis.text.y  = element_text(size=28, colour='black'),
-										 legend.position=c(0.8, 0.2),
-										 legend.title = element_text(colour="black", size=25),
-										 legend.text = element_text(colour="black", size =25),
-										 plot.title = element_text(face="bold", size=25),
-										 legend.key.size = unit(0.8,"cm"))+
+	facet_wrap(~ Trait, strip.position = "left", ncol = 1) +
+	theme_bw() +
+	theme(
+		strip.background = element_blank(),
+		strip.text.y = element_text(colour='black', size = 15, angle = 180, hjust = 1),
+		strip.placement = "outside",
+		axis.text.y = element_blank(),
+		axis.ticks.length = unit(0, "mm"),
+		panel.spacing = unit(5, "mm"),
+		panel.grid.major.x = element_blank(),
+		axis.line.x = element_line(colour = "black"),
+		axis.line.y = element_line(colour = "black"),
+		panel.border = element_blank(),
+		panel.grid.major.y = element_blank(),
+	 panel.grid.minor.y = element_blank(),
+	 axis.title.x = element_text(face="bold", colour='black', size=25),
+	 axis.title.y = element_text(face="bold", colour='black', size=25),
+	 axis.text.x  = element_text(size=28, colour='black'),
+	 legend.position=c(0.8, 0.2),
+	 legend.title = element_text(colour="black", size=25),
+	 legend.text = element_text(colour="black", size =25),
+	 plot.title = element_text(face="bold", size=25),
+	 legend.key.size = unit(0.8,"cm")) +
 	ggtitle("Genetic and environmental contributions to phenotypic variance")+
-	labs(x="Phenotypes", y="Variance explained %")+
-	scale_fill_manual(values=c("Common genetic" = "red2", "Pedigree genetic" = "red4", "Family" = "blue4", "Sibling" = "lightskyblue",  "Couple" = "blue2", "Total" = "black"))+
-	scale_y_continuous(breaks=c(0,10,20,30,40,50,60,70,80,90,100))+
+	scale_fill_manual("Variance components", values=c("Common genetic" = "red2", "Pedigree genetic" = "red4", "Family" = "blue4", "Sibling" = "lightskyblue",  "Couple" = "blue2", "Total" = "black"))+
+	scale_y_continuous("Variance explained %", breaks=c(0,10,20,30,40,50,60,70,80,90,100))+
 	scale_x_discrete()+
-	coord_flip(ylim = c(0,100))
+	coord_flip()
 
-ggsave(filename = "ind_components_stack.pdf", width = 15, height = 15)
+
+stack_dodge = ggplot(z,aes(x = Phenotypes, y = Variance,fill = Source)) +
+	geom_col(width = barwidth, alpha = 0.7) +
+	geom_linerange(aes(ymin = Variance - Standard.Error, ymax = Variance + Standard.Error),
+								 position = position_dodge(width = barwidth),stat = "identity") +
+	facet_wrap(~ Trait, strip.position = "left", ncol = 1, scales = "free_y", drop = T) +
+	theme_bw() +
+	theme(
+		strip.background = element_blank(),
+		strip.text.y = element_text(colour='black', size = 15, angle = 180, hjust = 1),
+		strip.placement = "outside",
+		strip.switch.pad.wrap	= unit(10, "mm"),
+		axis.text.y = element_blank(),
+		axis.ticks.length = unit(0, "mm"),
+		panel.spacing.y = unit(4, "mm"),
+		panel.spacing.x = unit(0, "mm"),
+		panel.grid.major.x = element_blank(),
+		axis.line.x = element_line(colour = "black"),
+		axis.line.y = element_line(colour = "black"),
+		panel.border = element_rect(colour = "#EEEEEE"),
+		panel.grid.major.y = element_blank(),
+		panel.grid.minor.y = element_blank(),
+		axis.title.x = element_text(face="bold", colour='black', size=25),
+		axis.title.y = element_text(face="bold", colour='black', size=25),
+		axis.text.x  = element_text(size=28, colour='black'),
+		legend.position=c(0.8, 0.2),
+		legend.title = element_text(colour="black", size=25),
+		legend.text = element_text(colour="black", size =25),
+		plot.title = element_text(face="bold", size=25),
+		legend.key.size = unit(0.8,"cm")) +
+	ggtitle("Genetic and environmental contributions to phenotypic variance")+
+	scale_fill_manual("Variance components", values=c("Common genetic" = "red2", "Pedigree genetic" = "red4", "Family" = "blue4", "Sibling" = "lightskyblue",  "Couple" = "blue2", "Total" = "black"))+
+	scale_y_continuous("Variance explained %", breaks=c(0,10,20,30,40,50,60,70,80,90,100))+
+	scale_x_discrete()+
+	coord_flip()
+stack_dodge
+#
+# stack_dodge + scale_fill_brewer("Phenotypes", palette = 1)
+# stack_dodge + scale_fill_manual("Phenotypes", values=
+# 		c(
+# 			"Common genetic" = "black",
+# 			"Pedigree genetic" = "#9F3B2B",
+# 			"Family" = "#8A846C",
+# 			"Sibling" = "#21523B",
+# 			"Couple" = "#E2A674"
+# 		)
+# )
+
+ggsave(stack_dodge, filename = "ind_components_stack.pdf", width = 15, height = 15)
 
