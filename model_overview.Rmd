@@ -2,8 +2,11 @@
 author: "Ruben Arslan"
 date: "7 November 2016"
 output:
+  html_document: 
+    self_contained: FALSE
+    code_folding: "hide"
+    theme: "paper"
   pdf_document: default
-  html_document: default
 ---
 
 <style>
@@ -13,6 +16,7 @@ float:left
 </style>
 
 # Model Overview {.tabset}
+A graphical overview of all models fitted to the Generation Scotland 20 data. Choose a phenotype, and compare the models.
 
 ```{r results='asis', warning=F,message=F,echo=FALSE,fig.width=5,fig.height=5}
 library(formr)
@@ -22,14 +26,52 @@ library(pander)
 library(readr)
 library(stringr)
 files = list.files(path = "../Pedigree variants/Output/", pattern = ".hsq$", recursive = T, full.names = F)
+options(digits = 2)
+
 files = na.omit(str_match(files, pattern = "(.+?)/(.+?)/(.+?)\\_model\\.hsq"))
+files = data.frame(files) 
+names(files) = c("Path", "Domain", "Phenotype", "Model")
+# models = unique(files$Model)
+# models = models[order(str_length(models), models)]
+# models = union(c("Full", "Selected"), models)
+models = c("Full", "Selected", 
+					  "G", "K", "F", "S", "C", 
+					 "GK", "GF", "GS", "GC", 
+					 "KF",  "KS", "KC",
+					 "FS", "FC", 
+					 "SC",
+					 "GFC", "GFS", "GKC", 
+					 "GKF", "GKS", "GSC", 
+					 "KFC", "KFS", "KSC", 
+ 					 "FSC", 
+						"GFSC", "GKFC", "GKFS", "GKSC", "KFSC")
+files = files %>% 
+	mutate(Phenotype = recode(Phenotype,
+				 	"g_factor" = "g", 
+				 	"Digit_symbol" = "Digit symbol", 
+				 	"Education" = "Education", 
+				 	"Vocabulary" = "Vocabulary", 
+				 	"Verbal_Fluency" = "Verbal fluency", 
+				 	"Logical_memory" = "Logical memory", 
+				 	"N" = "Neuroticism", 
+				 	"E" = "Extraversion"),
+				 Phenotype = factor(Phenotype, levels = c("g", "Education", "Vocabulary", "Digit symbol", "Verbal fluency","Logical memory", "Neuroticism", "Extraversion")),
+				 Model = factor(Model, levels = models)
+				 ) %>% 
+	na.omit() %>%
+	arrange(Domain, Phenotype, Model) %>%
+	mutate(Domain = as.character(Domain),
+				 Phenotype = as.character(Phenotype),
+				 Model = as.character(Model)
+				 )
+
 last = F
 models = tbl_df(data.frame(domain = character(0), aspect = character(0), model = character(0), Component = character(0), Variance = double(0), SE = double()))
 for (i in seq_along(1:nrow(files))) {
 	model = read_tsv(file = paste0("../Pedigree variants/Output/", files[i, 1]), col_names = T)
 	if (files[i, 3] != last) {
 		model_comparisons = tbl_df(data.frame(model = character(0), logL = double(0)))
-		cat("\n\n\n## ",files[i, 2] ,files[i, 3], " {.tabset}\n\n\n")
+		cat("\n\n\n## ",files[i, 2],": " ,files[i, 3], " {.tabset}\n\n\n", sep = "")
 		last = files[i, 3]
 	}
 	curfile = files[i, ]
@@ -38,7 +80,15 @@ for (i in seq_along(1:nrow(files))) {
 	if(included_comps == "Full") {
 		included_comps = "GKFSC"
 	} else if (included_comps == "Selected") {
-		included_comps = ""
+		if(files[i, 3] %in% c("g", "Education", "Vocabulary", "Digit symbol")) {
+			included_comps = "GKSC"
+		} else if(files[i, 3] == "Logical memory") {
+			included_comps = "GKS"
+		} else if(files[i, 3] == "Extraversion") {
+			included_comps = "GF"
+		} else if(files[i, 3] == "Neuroticism") {
+			included_comps = "GK"
+		}
 	}
 	components = poss_components[included_comps %contains% poss_components ]
 	if(length(components) > 1) {
@@ -53,23 +103,35 @@ for (i in seq_along(1:nrow(files))) {
 	model = model %>% left_join(components, by = "Source") %>% mutate(Component = ifelse(is.na(Component), Source, Component)) %>% select(Component, Variance, SE)
 	
 	cat("\n\n\n### ",files[i, 4],"\n\n\n")
-	cat(pander(model))
-	
+	model %>%
+		mutate(Variance = round(Variance, 2),
+					 SE = round(SE, 2)) %>%
+		pander() %>% 
+		cat()
+
 	model %>% filter(Component %ends_with% "%" | Component %ends_with% "/Vp") -> std_vars
+
+	std_vars$Component2 = std_vars$Component
+	std_vars2 = std_vars
+	std_vars2$Component2 = "Total"
+	std_vars2$SE = NA
+	std_vars = bind_rows(std_vars, std_vars2)
 	if(std_vars$Component[1] %contains% "Vp") {
-		std_vars$Component = factor(std_vars$Component, levels = c("V(G1)/Vp", "V(G2)/Vp", "V(G3)/Vp", "V(G4)/Vp", "V(G5)/Vp"))
-	} else {
-		std_vars$Component = factor(std_vars$Component, levels = c("G%", "K%", "F%", "S%", "C%"))
-	}
-	# std_vars$Component = droplevels(std_vars$Component)
+			std_vars$Component = factor(std_vars$Component, levels = rev(c("V(G1)/Vp", "V(G2)/Vp", "V(G3)/Vp", "V(G4)/Vp", "V(G5)/Vp")))
+			std_vars$Component2 = factor(std_vars$Component2, levels = c("V(G1)/Vp", "V(G2)/Vp", "V(G3)/Vp", "V(G4)/Vp", "V(G5)/Vp", "Total"))
+		} else {
+			std_vars$Component = factor(std_vars$Component, levels = rev(c("G%", "K%", "F%", "S%", "C%")))
+			std_vars$Component2 = factor(std_vars$Component2, levels = c("G%", "K%", "F%", "S%", "C%", "Total"))
+		}
 	cat("<div style='float:right'>")
 	print(
 	ggplot(std_vars, 
-				 aes(x = Component, y = Variance, ymax = Variance + SE, ymin = ifelse(Variance - SE<=0, 0, Variance - SE))) + 
-		geom_linerange() + 
-		geom_bar(stat='identity', width = 0.5, alpha = 0.5) + 
+				 aes(x = Component2, y = Variance, fill = Component)) + 
+		geom_col(width = 0.5, alpha = 0.7) + 
+		geom_linerange(aes(ymax = Variance + SE, ymin = ifelse(Variance - SE<=0, 0, Variance - SE))) + 
 		coord_flip() + 
-		scale_x_discrete(limits = rev(levels(std_vars$Component)), drop = F) + 
+		scale_fill_manual("Variance components", values = setNames(c("red2","red4","blue4","lightskyblue","blue2"), rev(levels(std_vars$Component))), guide = F) +
+		scale_x_discrete(limits = rev(levels(std_vars$Component2)), drop = F) + 
 		theme_bw() + 
 		theme(panel.grid.major.y = element_blank(), panel.grid.minor.y = element_blank()) + 
 		scale_y_continuous(limits = c(0,1))
@@ -91,8 +153,20 @@ for (i in seq_along(1:nrow(files))) {
 	}
 	cat("\n\n\n\\newpage\n\n\n")
 }
+```
 
-cat("\n\n\n## All models\n\n")
-pander(models)
+## All models
+```{r, warning=F,message=F,echo=FALSE}
+library(DT)
+models$Variance = round(models$Variance, 2)
+models$SE = round(models$SE, 2)
+models$Component = factor(models$Component)
+models$model = factor(models$model)
+models$aspect = factor(models$aspect)
+models$domain = factor(models$domain)
+datatable(models, filter = 'top', options = list(
+  pageLength = 50, autoWidth = TRUE
+), rownames = F)
+save(models, file = "models.rdata")
 ```
 
