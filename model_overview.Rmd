@@ -26,7 +26,7 @@ library(pander)
 library(readr)
 library(stringr)
 files = list.files(path = "../Pedigree variants/Output/", pattern = ".hsq$", recursive = T, full.names = F)
-options(digits = 2)
+options(digits = 3)
 
 files = na.omit(str_match(files, pattern = "(.+?)/(.+?)/(.+?)\\_model\\.hsq"))
 files = data.frame(files) 
@@ -104,8 +104,8 @@ for (i in seq_along(1:nrow(files))) {
 	
 	cat("\n\n\n### ",files[i, 4],"\n\n\n")
 	model %>%
-		mutate(Variance = round(Variance, 2),
-					 SE = round(SE, 2)) %>%
+		mutate(Variance = round(Variance, 3),
+					 SE = round(SE, 3)) %>%
 		pander() %>% 
 		cat()
 
@@ -158,8 +158,8 @@ for (i in seq_along(1:nrow(files))) {
 ## All models
 ```{r, warning=F,message=F,echo=FALSE}
 library(DT)
-models$Variance = round(models$Variance, 2)
-models$SE = round(models$SE, 2)
+models$Variance = round(models$Variance, 3)
+models$SE = round(models$SE, 3)
 models$Component = factor(models$Component)
 models$model = factor(models$model)
 models$aspect = factor(models$aspect)

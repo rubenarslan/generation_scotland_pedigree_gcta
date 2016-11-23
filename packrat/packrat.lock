@@ -250,6 +250,12 @@ Source: CRAN
 Version: 0.9.5
 Hash: 26776a287eaffb2331c9a449c1d2a791
 
+Package: openxlsx
+Source: CRAN
+Version: 3.0.0
+Hash: c1b51f4b3d3037896a462c67b75edc00
+Requires: Rcpp
+
 Package: packrat
 Source: CRAN
 Version: 0.4.8-1
