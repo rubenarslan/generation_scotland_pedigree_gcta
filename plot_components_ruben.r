@@ -1,7 +1,15 @@
 library(dplyr)
 library(ggplot2)
 x <- read.table("stack_plot_with_pers.csv", sep = ",", header = T, skip = 0)
-x$Trait = factor(x$Trait, levels = c("g", "Education", "Vocabulary", "Digit symbol", "Verbal fluency","Logical memory", "Neuroticism", "Extraversion"))
+x$Trait = factor(recode(x$Trait,
+			"g" = "g",
+			"Digit symbol" = "Digit Symbol Test",
+			"Education" = "Education",
+			"Vocabulary" = "Vocabulary",
+			"Verbal fluency" = "Verbal Fluency",
+			"Logical memory" = "Logical Memory",
+			"Neuroticism" = "Neuroticism",
+			"Extraversion" = "Extraversion"), levels = c("g", "Education", "Vocabulary", "Digit Symbol Test", "Verbal Fluency","Logical Memory", "Neuroticism", "Extraversion"))
 x$Source = factor(x$Source, levels = c("Common genetic","Pedigree genetic","Family","Sibling","Couple"))
 
 ggplot(x,aes(x = Trait, y = Variance,fill = Source)) +
@@ -25,7 +33,7 @@ panel.grid.minor = element_blank(),
 	scale_x_discrete()+
 	coord_cartesian(ylim=c(0,100))
 
-x$Trait = factor(x$Trait, levels = rev(c("g", "Education", "Vocabulary", "Digit symbol", "Verbal fluency","Logical memory", "Neuroticism", "Extraversion")))
+x$Trait = factor(x$Trait, levels = rev(c("g", "Education", "Vocabulary", "Digit Symbol Test", "Verbal Fluency","Logical Memory", "Neuroticism", "Extraversion")))
 x$Source = factor(x$Source, levels = rev(c("Common genetic","Pedigree genetic","Family","Sibling","Couple")))
 y = x %>% bind_rows(x %>% group_by(Trait) %>%
 	summarise(Variance = sum(Variance)) %>% mutate(Source = "Total"))
@@ -67,7 +75,7 @@ x %>% group_by(Trait) %>%
 
 library(ggplot2)
 x <- read.table("stack_plot_with_pers.csv", sep = ",", header = T, skip = 0)
-x$Trait = factor(x$Trait, levels = c("g", "Education", "Vocabulary", "Digit symbol", "Verbal fluency","Logical memory", "Neuroticism", "Extraversion"))
+x$Trait = factor(x$Trait, levels = c("g", "Education", "Vocabulary", "Digit Symbol Test", "Verbal Fluency","Logical Memory", "Neuroticism", "Extraversion"))
 x$Source = factor(x$Source, levels = rev(c("Common genetic","Pedigree genetic","Family","Sibling","Couple")))
 x$Phenotypes = x$Source
 y = x
@@ -161,3 +169,59 @@ stack_dodge
 
 ggsave(stack_dodge, filename = "ind_components_stack.pdf", width = 15, height = 15)
 
+
+
+#### marioni
+marioni = bind_rows(
+	data.frame(
+						Phenotypes = c("Pedigree (Marioni et al., 2014)", "Pedigree (Marioni et al., 2014)"),
+						Trait = c("g", "Education"),
+					 Variance = c(54, 41),
+					 Standard.Error = c(2, 2),
+						Source = c("Pedigree (Marioni et al., 2014)", "Pedigree (Marioni et al., 2014)")),
+z %>% filter(Trait %in% c("g", "Education"), Source %in% c("Common genetic", "Pedigree genetic"), Phenotypes == "Total")
+)
+
+
+marioni
+marioni$Trait = factor(marioni$Trait, levels = c("g", "Education"))
+marioni$Source = factor(marioni$Source, levels = rev(c("Pedigree (Marioni et al., 2014)", "Common genetic", "Pedigree genetic")))
+marioni$Phenotypes = factor(marioni$Phenotypes, levels = c("Pedigree (Marioni et al., 2014)", "Total"))
+
+comp_pedi = ggplot(marioni,aes(x = Phenotypes, y = Variance,fill = Source)) +
+	geom_col(width = barwidth, alpha = 0.7) +
+	# geom_linerange(aes(ymin = Variance - Standard.Error, ymax = Variance + Standard.Error),
+	# 							 position = position_dodge(width = barwidth),stat = "identity") +
+	facet_wrap(~ Trait, strip.position = "left", ncol = 1, scales = "free_y", drop = T) +
+	theme_bw() +
+	theme(
+		strip.background = element_blank(),
+		strip.text.y = element_text(colour='black', size = 15, angle = 180, hjust = 1),
+		strip.placement = "outside",
+		strip.switch.pad.wrap	= unit(10, "mm"),
+		axis.text.y = element_blank(),
+		axis.ticks.length = unit(0, "mm"),
+		panel.spacing.y = unit(4, "mm"),
+		panel.spacing.x = unit(0, "mm"),
+		panel.grid.major.x = element_blank(),
+		axis.line.x = element_line(colour = "black"),
+		axis.line.y = element_line(colour = "black"),
+		panel.border = element_rect(colour = "#EEEEEE"),
+		panel.grid.major.y = element_blank(),
+		panel.grid.minor.y = element_blank(),
+		axis.title.x = element_text(face="bold", colour='black', size=20),
+		axis.title.y = element_text(face="bold", colour='black', size=20),
+		axis.text.x  = element_text(size=20, colour='black'),
+		legend.position=c(0.87, 0.125),
+		legend.title = element_text(colour="black", size=20),
+		legend.text = element_text(colour="black", size =16),
+		plot.title = element_text(face="bold", size=22),
+		legend.key.size = unit(0.6,"cm")) +
+	ggtitle("Comparison to the traditional pedigree estimate")+
+	scale_fill_manual("Variance components", values=c("Common genetic" = "red2", "Pedigree genetic" = "red4", "Pedigree (Marioni et al., 2014)" = "black"))+
+	scale_y_continuous("Variance explained %", breaks=c(0,10,20,30,40,50,60,70,80,90,100))+
+	scale_x_discrete()+
+	coord_flip()
+comp_pedi
+
+ggsave(comp_pedi, filename = "comp_to_marioni.pdf", width = 15, height = 10)

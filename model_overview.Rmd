@@ -4,9 +4,12 @@ date: "7 November 2016"
 output:
   html_document: 
     self_contained: FALSE
-    code_folding: "hide"
     theme: "paper"
   pdf_document: default
+bibliography: packrat_bibliography.bibtex
+csl: apa-custom-no-issue.csl
+nocite: | 
+  @R @BH @DBI @DT @MASS @R.cache @R.methodsS3 @R.oo @R.utils @R6 @RColorBrewer @Rcpp @assertthat @backports @base64enc @bitops @caTools @chron @codetools @colorspace @commonmark @curl @data.table @dichromat @digest @dplyr @evaluate @foreign @formatR @formr @ggplot2 @gridExtra @gtable @haven @highr @hms @htmltools @htmlwidgets @httr @jsonlite @knitr @labeling @lazyeval @likert @lubridate @magrittr @markdown @mime @mnormt @munsell @openssl @openxlsx @packrat @pander @plyr @pryr @psych @readr @repmis @reshape2 @rmarkdown @rprojroot @scales @stringi @stringr @tibble @tidyr @xtable @yaml
 ---
 
 <style>
@@ -48,14 +51,14 @@ models = c("Full", "Selected",
 files = files %>% 
 	mutate(Phenotype = recode(Phenotype,
 				 	"g_factor" = "g", 
-				 	"Digit_symbol" = "Digit symbol", 
+				 	"Digit_symbol" = "Digit Symbol Test", 
 				 	"Education" = "Education", 
 				 	"Vocabulary" = "Vocabulary", 
-				 	"Verbal_Fluency" = "Verbal fluency", 
-				 	"Logical_memory" = "Logical memory", 
+				 	"Verbal_Fluency" = "Verbal Fluency", 
+				 	"Logical_memory" = "Logical Memory", 
 				 	"N" = "Neuroticism", 
 				 	"E" = "Extraversion"),
-				 Phenotype = factor(Phenotype, levels = c("g", "Education", "Vocabulary", "Digit symbol", "Verbal fluency","Logical memory", "Neuroticism", "Extraversion")),
+				 Phenotype = factor(Phenotype, levels = c("g", "Education", "Vocabulary", "Digit Symbol Test", "Verbal Fluency","Logical Memory", "Neuroticism", "Extraversion")),
 				 Model = factor(Model, levels = models)
 				 ) %>% 
 	na.omit() %>%
@@ -80,9 +83,9 @@ for (i in seq_along(1:nrow(files))) {
 	if(included_comps == "Full") {
 		included_comps = "GKFSC"
 	} else if (included_comps == "Selected") {
-		if(files[i, 3] %in% c("g", "Education", "Vocabulary", "Digit symbol")) {
+		if(files[i, 3] %in% c("g", "Education", "Vocabulary", "Digit Symbol Test", "Verbal Fluency")) {
 			included_comps = "GKSC"
-		} else if(files[i, 3] == "Logical memory") {
+		} else if(files[i, 3] == "Logical Memory") {
 			included_comps = "GKS"
 		} else if(files[i, 3] == "Extraversion") {
 			included_comps = "GF"
@@ -104,7 +107,7 @@ for (i in seq_along(1:nrow(files))) {
 	
 	cat("\n\n\n### ",files[i, 4],"\n\n\n")
 	model %>%
-		mutate(Variance = round(Variance, 3),
+		mutate(Variance = round(Variance, 2),
 					 SE = round(SE, 3)) %>%
 		pander() %>% 
 		cat()
@@ -131,7 +134,7 @@ for (i in seq_along(1:nrow(files))) {
 		geom_linerange(aes(ymax = Variance + SE, ymin = ifelse(Variance - SE<=0, 0, Variance - SE))) + 
 		coord_flip() + 
 		scale_fill_manual("Variance components", values = setNames(c("red2","red4","blue4","lightskyblue","blue2"), rev(levels(std_vars$Component))), guide = F) +
-		scale_x_discrete(limits = rev(levels(std_vars$Component2)), drop = F) + 
+		scale_x_discrete("Component", limits = rev(levels(std_vars$Component2)), drop = F) + 
 		theme_bw() + 
 		theme(panel.grid.major.y = element_blank(), panel.grid.minor.y = element_blank()) + 
 		scale_y_continuous(limits = c(0,1))
@@ -158,7 +161,7 @@ for (i in seq_along(1:nrow(files))) {
 ## All models
 ```{r, warning=F,message=F,echo=FALSE}
 library(DT)
-models$Variance = round(models$Variance, 3)
+models$Variance = round(models$Variance, 2)
 models$SE = round(models$SE, 3)
 models$Component = factor(models$Component)
 models$model = factor(models$model)
@@ -169,4 +172,14 @@ datatable(models, filter = 'top', options = list(
 ), rownames = F)
 save(models, file = "models.rdata")
 ```
+
+# &nbsp;
+<div style="clear:both"></div>
+
+### License
+<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+
+# R package supplementary references
+
+This reference list was automatically generated from a Packrat lockfile. To find out the exact locked versions, view the [lockfile](packrat.lock) itself.
 
