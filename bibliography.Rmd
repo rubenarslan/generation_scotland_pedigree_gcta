@@ -1,0 +1,26 @@
+---
+author: "Ruben Arslan"
+date: "7 November 2016"
+output:
+  html_document: 
+    self_contained: FALSE
+    theme: "paper"
+bibliography: packrat_bibliography.bibtex
+csl: apa-custom-no-issue.csl
+nocite: | 
+  @R @BH @DBI @DT @MASS @R6 @RColorBrewer @Rcpp @assertthat @backports @base64enc @bitops @caTools @codetools @colorspace @commonmark @curl @dichromat @digest @dplyr @evaluate @foreign @formr @ggplot2 @gridExtra @gtable @haven @highr @hms @htmltools @htmlwidgets @httr @jsonlite @knitr @labeling @lazyeval @likert @lubridate @magrittr @markdown @mime @mnormt @munsell @openssl @openxlsx @packrat @pander @plyr @pryr @psych @readr @reshape2 @rmarkdown @rprojroot @scales @stringi @stringr @tibble @tidyr @xtable @yaml
+---
+# Model Overview {.tabset}
+A graphical overview of all models fitted to the Generation Scotland 20 data. Choose a phenotype, and compare the models.
+
+## Bla
+Nothing
+
+## Bla
+Here
+# &nbsp;
+
+### License
+
+# Packrat Bibliography
+
