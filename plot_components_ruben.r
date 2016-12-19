@@ -32,6 +32,7 @@ blank_facets = theme(
 	axis.line.x = element_line(colour = "black"),
 	axis.line.y = element_line(colour = "black"),
 	panel.border = element_rect(colour = "#EEEEEE"),
+	panel.background = element_rect(fill = "#FEFEFE"),
 	panel.grid.major.y = element_blank(),
 	panel.grid.minor.y = element_blank(),
 	axis.title.x = element_text(face="bold", colour='black', size=20),
@@ -58,7 +59,7 @@ stack_dodge = ggplot(z,aes(x = Phenotypes, y = Variance,fill = Source)) +
 	coord_flip()
 stack_dodge
 
-ggsave(stack_dodge, filename = "ind_components_stack.pdf", width = 15, height = 15)
+ggsave(stack_dodge, filename = "ind_components_stack.pdf", width = 17.8, height = 17.8*0.625)
 
 library(formr)
 x %>% group_by(Trait) %>%
@@ -137,7 +138,7 @@ comp_pedi = ggplot(marioni,aes(x = Phenotypes, y = Variance,fill = Source)) +
 	scale_x_discrete("Data used to derive estimate of relatedness")
 comp_pedi
 
-ggsave(comp_pedi, filename = "comp_to_marioni.pdf", width = 15, height = 10)
+ggsave(comp_pedi, filename = "comp_to_marioni.pdf", width = 17.8, height = 17.8*0.625)
 
 
 

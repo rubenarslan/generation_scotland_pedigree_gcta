@@ -9,7 +9,7 @@ output:
 bibliography: packrat_bibliography.bibtex
 csl: apa-custom-no-issue.csl
 nocite: | 
-  @R @BH @DBI @DT @MASS @R.cache @R.methodsS3 @R.oo @R.utils @R6 @RColorBrewer @Rcpp @assertthat @backports @base64enc @bitops @caTools @chron @codetools @colorspace @commonmark @curl @data.table @dichromat @digest @dplyr @evaluate @foreign @formatR @formr @ggplot2 @gridExtra @gtable @haven @highr @hms @htmltools @htmlwidgets @httr @jsonlite @knitr @labeling @lazyeval @likert @lubridate @magrittr @markdown @mime @mnormt @munsell @openssl @openxlsx @packrat @pander @plyr @pryr @psych @readr @repmis @reshape2 @rmarkdown @rprojroot @scales @stringi @stringr @tibble @tidyr @xtable @yaml
+  @R @ggplot2 @dplyr @pander @stringr @DT @openxlsx @readr @tidyr @rmarkdown @knitr
 ---
 
 <style>
@@ -181,5 +181,5 @@ save(models, file = "models.rdata")
 
 # R package supplementary references
 
-This reference list was automatically generated from a Packrat lockfile. To find out the exact locked versions, view the [lockfile](packrat.lock) itself.
+This reference list to the R packages used to make this website was automatically generated from a Packrat lockfile. To find out the exact locked versions, view the [lockfile](packrat.lock) itself.
 
