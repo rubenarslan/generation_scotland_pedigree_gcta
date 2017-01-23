@@ -8,7 +8,7 @@ output:
   pdf_document: default
 bibliography: packrat_bibliography.bibtex
 csl: apa-custom-no-issue.csl
-pagetitle: "Generation Scotland Pedigree + GCTA"
+pagetitle: "Generation Scotland: Scottish Family Health Study. Pedigree + GCTA"
 nocite: | 
   @R @ggplot2 @dplyr @pander @stringr @DT @openxlsx @readr @tidyr @rmarkdown @knitr
 ---
@@ -23,7 +23,7 @@ float:left
 
 ## Model Overview {.tab-content}
 
-A graphical overview of all models fitted to the Generation Scotland 20 data. Choose a phenotype, and compare the models.
+A graphical overview of all models fitted to data from the Generation Scotland: Scottish Family Health Study. Choose a phenotype, and compare the models.
 
 ```{r results='asis', warning=F,message=F,echo=FALSE,fig.width=5,fig.height=5}
 library(formr)
