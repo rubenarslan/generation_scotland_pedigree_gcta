@@ -144,7 +144,7 @@ for (i in seq_along(1:nrow(files))) {
 	print(
 	ggplot(std_vars, 
 				 aes(x = Component2, y = Variance * 100, fill = Component)) + 
-		geom_col(width = 0.5, alpha = 0.7) + 
+		geom_col(width = 0.5, alpha = 1) + 
 		geom_linerange(aes(ymax = (Variance + SE) * 100, ymin = ifelse(Variance - SE<=0, 0, Variance - SE) * 100)) + 
 		coord_flip() + 
 		scale_fill_manual("Variance components", values = setNames(c("red2","red4","blue4","lightskyblue","blue2"), rev(levels(std_vars$Component))), drop = F) +
