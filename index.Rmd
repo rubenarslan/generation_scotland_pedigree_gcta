@@ -8,7 +8,7 @@ output:
   pdf_document: default
 bibliography: packrat_bibliography.bibtex
 csl: apa-custom-no-issue.csl
-pagetitle: "Generation Scotland: Scottish Family Health Study. Pedigree + GCTA"
+pagetitle: "Genomic analysis of family data reveals additional genetic effects on intelligence and personality"
 nocite: | 
   @R @packrat @rmarkdown @formr @ggplot2 @dplyr @pander @readr @stringr @DT @tidyr @openxlsx
 ---
@@ -239,7 +239,7 @@ W. David Hill<sup>1,2*†</sup>, Ruben C. Arslan<sup>3,4†</sup>, Charley Xia<s
 
 ### Archival
 
-This website was archived on Zenodo under the DOI: TODO upon finalisation.
+This website was archived on Zenodo under the following DOI: [![DOI](https://zenodo.org/badge/73945048.svg)](https://zenodo.org/badge/latestdoi/73945048).
 
 ### R package supplementary references
 
