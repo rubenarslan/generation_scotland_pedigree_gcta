@@ -31,10 +31,10 @@ blank_facets = theme(
 	panel.grid.major.x = element_blank(),
 	axis.line.x = element_line(colour = "black"),
 	axis.line.y = element_line(colour = "black"),
-	panel.border = element_rect(colour = "#EEEEEE"),
+	panel.border = element_blank(),
 	panel.background = element_rect(fill = "#FEFEFE"),
-	panel.grid.major.y = element_blank(),
-	panel.grid.minor.y = element_blank(),
+	panel.grid.major = element_blank(),
+	panel.grid.minor = element_blank(),
 	axis.title.x = element_text(face="bold", colour='black', size=20),
 	axis.title.y = element_text(face="bold", colour='black', size=20),
 	axis.text.x  = element_text(size=20, colour='black'),
@@ -43,6 +43,7 @@ blank_facets = theme(
 	legend.text = element_text(colour="black", size =16),
 	plot.title = element_text(face="bold", size=22),
 	legend.key.size = unit(0.6,"cm"))
+
 
 barwidth = 0.7
 stack_dodge = ggplot(z,aes(x = Phenotypes, y = Variance,fill = Source)) +

@@ -1,0 +1,850 @@
+*******************************************************************
+* Genome-wide Complex Trait Analysis (GCTA)
+* version 1.24.7
+* (C) 2010-2013 Jian Yang, Hong Lee, Michael Goddard and Peter Visscher
+* The University of Queensland
+* MIT License
+*******************************************************************
+Analysis started: Mon May  1 15:36:13 2017
+
+Options:
+--mgrm 6bins
+--reml
+--pheno digit.phen
+--reml-no-lrt
+--out digit_6bin_new
+
+Note: This is a multi-thread program. You could specify the number of threads by the --thread-num option to speed up the computation if there are multiple processors in your machine.
+
+Reading phenotypes from [digit.phen].
+Non-missing phenotypes of 19805 individuals are included from [digit.phen].
+
+There are 6 GRM file names specified in the file [6bins].
+Reading the GRM from the 1th file ...
+Reading IDs of the GRM from [binMAF0.001-MAF0.01.grm.id].
+7370 IDs read from [binMAF0.001-MAF0.01.grm.id].
+Reading the GRM from [binMAF0.001-MAF0.01.grm.bin].
+Pairwise genetic relationships between 7370 individuals are included from [binMAF0.001-MAF0.01.grm.bin].
+Reading the GRM from the 2th file ...
+Reading IDs of the GRM from [binMAF0.01-MAF0.1.grm.id].
+7370 IDs read from [binMAF0.01-MAF0.1.grm.id].
+Reading the GRM from [binMAF0.01-MAF0.1.grm.bin].
+Pairwise genetic relationships between 7370 individuals are included from [binMAF0.01-MAF0.1.grm.bin].
+Reading the GRM from the 3th file ...
+Reading IDs of the GRM from [bin0.1_0.2.grm.id].
+7370 IDs read from [bin0.1_0.2.grm.id].
+Reading the GRM from [bin0.1_0.2.grm.bin].
+Pairwise genetic relationships between 7370 individuals are included from [bin0.1_0.2.grm.bin].
+Reading the GRM from the 4th file ...
+Reading IDs of the GRM from [bin0.2_0.3.grm.id].
+7370 IDs read from [bin0.2_0.3.grm.id].
+Reading the GRM from [bin0.2_0.3.grm.bin].
+Pairwise genetic relationships between 7370 individuals are included from [bin0.2_0.3.grm.bin].
+Reading the GRM from the 5th file ...
+Reading IDs of the GRM from [bin0.3_0.4.grm.id].
+7370 IDs read from [bin0.3_0.4.grm.id].
+Reading the GRM from [bin0.3_0.4.grm.bin].
+Pairwise genetic relationships between 7370 individuals are included from [bin0.3_0.4.grm.bin].
+Reading the GRM from the 6th file ...
+Reading IDs of the GRM from [bin0.4_0.5.grm.id].
+7370 IDs read from [bin0.4_0.5.grm.id].
+Reading the GRM from [bin0.4_0.5.grm.bin].
+Pairwise genetic relationships between 7370 individuals are included from [bin0.4_0.5.grm.bin].
+7152 individuals are in common in these files.
+
+Performing  REML analysis ... (Note: may take hours depending on sample size).
+7152 observations, 1 fixed effect(s), and 7 variance component(s)(including residual variance).
+Calculating prior values of variance components by EM-REML ...
+Updated prior values: 0.145559 0.144985 0.144049 0.143747 0.143583 0.143547 0.145793
+logL: -3664.51
+Running AI-REML algorithm ...
+Iter.	logL	V(G1)	V(G2)	V(G3)	V(G4)	V(G5)	V(G6)	V(e)	
+1	-3661.90	0.11757	0.11789	0.10094	0.10722	0.10731	0.11079	0.33362	
+2	-3620.37	0.09708	0.09702	0.07034	0.08318	0.08307	0.08918	0.47106	
+3	-3599.69	0.08300	0.08159	0.04889	0.06742	0.06687	0.07485	0.56869	
+4	-3589.69	0.07384	0.07048	0.03395	0.05706	0.05603	0.06528	0.63663	
+5	-3584.93	0.06815	0.06261	0.02356	0.05025	0.04874	0.05885	0.68328	
+6	-3582.69	0.06477	0.05710	0.01635	0.04575	0.04384	0.05451	0.71502	
+7	-3581.64	0.06285	0.05325	0.01132	0.04279	0.04054	0.05156	0.73650	
+8	-3581.15	0.06184	0.05058	0.00783	0.04083	0.03830	0.04956	0.75098	
+9	-3580.92	0.06032	0.04471	0.00012	0.03673	0.03351	0.04523	0.78181	
+10	-3580.72	0.06180	0.04452	0.00000	0.03700	0.03354	0.04519	0.78050	(1 component(s) constrained)
+11	-3580.72	0.06179	0.04449	0.00000	0.03701	0.03353	0.04518	0.78055	(1 component(s) constrained)
+12	-3580.72	0.06179	0.04449	0.00000	0.03701	0.03353	0.04518	0.78055	(1 component(s) constrained)
+Log-likelihood ratio converged.
+
+Summary result of REML analysis:
+Source	Variance	SE
+V(G1)	0.061789	0.090736
+V(G2)	0.044490	0.051042
+V(G3)	0.000001	0.033777
+V(G4)	0.037007	0.032729
+V(G5)	0.033531	0.031528
+V(G6)	0.045183	0.027344
+V(e)	0.780552	0.096518
+Vp	1.002552	0.016807
+V(G1)/Vp	0.061631	0.090492
+V(G2)/Vp	0.044376	0.050896
+V(G3)/Vp	0.000001	0.033691
+V(G4)/Vp	0.036913	0.032628
+V(G5)/Vp	0.033446	0.031433
+V(G6)/Vp	0.045068	0.027240
+
+Sum of V(G)/Vp	0.221435	0.095845
+
+Sampling variance/covariance of the estimates of variance components:
+0.00823302	-0.00077247	-8.83734e-05	-5.50366e-05	-6.10516e-05	-5.43702e-05	-0.00717377	
+-0.00077247	0.00260532	-0.000327361	-0.000119144	-6.81013e-05	-6.88021e-05	-0.00122481	
+-8.83734e-05	-0.000327361	0.00114087	-0.000278565	-7.71361e-05	-6.49463e-05	-0.000304612	
+-5.50366e-05	-0.000119144	-0.000278565	0.00107117	-0.000309338	-0.000100862	-0.000187097	
+-6.10516e-05	-6.81013e-05	-7.71361e-05	-0.000309338	0.000994007	-0.000314309	-0.000145342	
+-5.43702e-05	-6.88021e-05	-6.49463e-05	-0.000100862	-0.000314309	0.000747701	-0.000117132	
+-0.00717377	-0.00122481	-0.000304612	-0.000187097	-0.000145342	-0.000117132	0.00931563	
+
+Summary result of REML analysis has been saved in the file [digit_6bin_new.hsq].
+
+Analysis finished: Mon May  1 15:40:27 2017
+Computational time: 0:4:14
+*******************************************************************
+* Genome-wide Complex Trait Analysis (GCTA)
+* version 1.24.7
+* (C) 2010-2013 Jian Yang, Hong Lee, Michael Goddard and Peter Visscher
+* The University of Queensland
+* MIT License
+*******************************************************************
+Analysis started: Mon May  1 15:40:27 2017
+
+Options:
+--mgrm 6bins
+--reml
+--pheno Education.phen
+--reml-no-lrt
+--out Education_6bin_new
+
+Note: This is a multi-thread program. You could specify the number of threads by the --thread-num option to speed up the computation if there are multiple processors in your machine.
+
+Reading phenotypes from [Education.phen].
+Non-missing phenotypes of 18912 individuals are included from [Education.phen].
+
+There are 6 GRM file names specified in the file [6bins].
+Reading the GRM from the 1th file ...
+Reading IDs of the GRM from [binMAF0.001-MAF0.01.grm.id].
+7370 IDs read from [binMAF0.001-MAF0.01.grm.id].
+Reading the GRM from [binMAF0.001-MAF0.01.grm.bin].
+Pairwise genetic relationships between 7370 individuals are included from [binMAF0.001-MAF0.01.grm.bin].
+Reading the GRM from the 2th file ...
+Reading IDs of the GRM from [binMAF0.01-MAF0.1.grm.id].
+7370 IDs read from [binMAF0.01-MAF0.1.grm.id].
+Reading the GRM from [binMAF0.01-MAF0.1.grm.bin].
+Pairwise genetic relationships between 7370 individuals are included from [binMAF0.01-MAF0.1.grm.bin].
+Reading the GRM from the 3th file ...
+Reading IDs of the GRM from [bin0.1_0.2.grm.id].
+7370 IDs read from [bin0.1_0.2.grm.id].
+Reading the GRM from [bin0.1_0.2.grm.bin].
+Pairwise genetic relationships between 7370 individuals are included from [bin0.1_0.2.grm.bin].
+Reading the GRM from the 4th file ...
+Reading IDs of the GRM from [bin0.2_0.3.grm.id].
+7370 IDs read from [bin0.2_0.3.grm.id].
+Reading the GRM from [bin0.2_0.3.grm.bin].
+Pairwise genetic relationships between 7370 individuals are included from [bin0.2_0.3.grm.bin].
+Reading the GRM from the 5th file ...
+Reading IDs of the GRM from [bin0.3_0.4.grm.id].
+7370 IDs read from [bin0.3_0.4.grm.id].
+Reading the GRM from [bin0.3_0.4.grm.bin].
+Pairwise genetic relationships between 7370 individuals are included from [bin0.3_0.4.grm.bin].
+Reading the GRM from the 6th file ...
+Reading IDs of the GRM from [bin0.4_0.5.grm.id].
+7370 IDs read from [bin0.4_0.5.grm.id].
+Reading the GRM from [bin0.4_0.5.grm.bin].
+Pairwise genetic relationships between 7370 individuals are included from [bin0.4_0.5.grm.bin].
+6860 individuals are in common in these files.
+
+Performing  REML analysis ... (Note: may take hours depending on sample size).
+6860 observations, 1 fixed effect(s), and 7 variance component(s)(including residual variance).
+Calculating prior values of variance components by EM-REML ...
+Updated prior values:  0.15631 0.155694 0.155024 0.155042 0.154759 0.154458 0.156515
+logL: -3726.35
+Running AI-REML algorithm ...
+Iter.	logL	V(G1)	V(G2)	V(G3)	V(G4)	V(G5)	V(G6)	V(e)	
+1	-3724.92	0.13800	0.11172	0.11769	0.14012	0.13276	0.10906	0.32631	
+2	-3698.52	0.12745	0.08104	0.09269	0.12900	0.11884	0.07874	0.44447	
+3	-3685.82	0.12231	0.05999	0.07604	0.12089	0.11012	0.05837	0.52463	
+4	-3679.84	0.12056	0.04570	0.06497	0.11504	0.10470	0.04460	0.57808	
+5	-3677.07	0.12071	0.03603	0.05762	0.11086	0.10137	0.03522	0.61330	
+6	-3675.78	0.12179	0.02952	0.05273	0.10788	0.09934	0.02878	0.63633	
+7	-3675.19	0.12322	0.02513	0.04949	0.10576	0.09814	0.02434	0.65130	
+8	-3674.92	0.12782	0.01576	0.04267	0.10100	0.09593	0.01458	0.68197	
+9	-3674.69	0.13112	0.01605	0.04310	0.10063	0.09682	0.01412	0.67809	
+10	-3674.69	0.13104	0.01600	0.04307	0.10057	0.09683	0.01408	0.67834	
+11	-3674.69	0.13105	0.01600	0.04307	0.10057	0.09683	0.01408	0.67831	
+Log-likelihood ratio converged.
+
+Summary result of REML analysis:
+Source	Variance	SE
+V(G1)	0.131054	0.103655
+V(G2)	0.016003	0.055712
+V(G3)	0.043074	0.038863
+V(G4)	0.100572	0.038487
+V(G5)	0.096830	0.036460
+V(G6)	0.014076	0.030278
+V(e)	0.678310	0.106749
+Vp	1.079918	0.018565
+V(G1)/Vp	0.121355	0.095933
+V(G2)/Vp	0.014818	0.051589
+V(G3)/Vp	0.039886	0.035969
+V(G4)/Vp	0.093129	0.035521
+V(G5)/Vp	0.089664	0.033655
+V(G6)/Vp	0.013034	0.028034
+
+Sum of V(G)/Vp	0.371887	0.098869
+
+Sampling variance/covariance of the estimates of variance components:
+0.0107443	-0.00107433	-0.000151803	-0.000185419	-8.00132e-05	-2.49386e-05	-0.00915988	
+-0.00107433	0.00310386	-0.000444044	-0.000166731	-7.099e-05	-7.80579e-05	-0.00126399	
+-0.000151803	-0.000444044	0.00151033	-0.000346609	-0.00013272	-9.58868e-05	-0.000313275	
+-0.000185419	-0.000166731	-0.000346609	0.00148126	-0.000392549	-0.000120333	-0.000200952	
+-8.00132e-05	-7.099e-05	-0.00013272	-0.000392549	0.00132934	-0.000413131	-0.000177473	
+-2.49386e-05	-7.80579e-05	-9.58868e-05	-0.000120333	-0.000413131	0.000916737	-0.000175111	
+-0.00915988	-0.00126399	-0.000313275	-0.000200952	-0.000177473	-0.000175111	0.0113953	
+
+Summary result of REML analysis has been saved in the file [Education_6bin_new.hsq].
+
+Analysis finished: Mon May  1 15:43:51 2017
+Computational time: 0:3:24
+*******************************************************************
+* Genome-wide Complex Trait Analysis (GCTA)
+* version 1.24.7
+* (C) 2010-2013 Jian Yang, Hong Lee, Michael Goddard and Peter Visscher
+* The University of Queensland
+* MIT License
+*******************************************************************
+Analysis started: Mon May  1 15:43:51 2017
+
+Options:
+--mgrm 6bins
+--reml
+--pheno eysenck_E.phen
+--reml-no-lrt
+--out eysenck_E_6bin_new
+
+Note: This is a multi-thread program. You could specify the number of threads by the --thread-num option to speed up the computation if there are multiple processors in your machine.
+
+Reading phenotypes from [eysenck_E.phen].
+Non-missing phenotypes of 19906 individuals are included from [eysenck_E.phen].
+
+There are 6 GRM file names specified in the file [6bins].
+Reading the GRM from the 1th file ...
+Reading IDs of the GRM from [binMAF0.001-MAF0.01.grm.id].
+7370 IDs read from [binMAF0.001-MAF0.01.grm.id].
+Reading the GRM from [binMAF0.001-MAF0.01.grm.bin].
+Pairwise genetic relationships between 7370 individuals are included from [binMAF0.001-MAF0.01.grm.bin].
+Reading the GRM from the 2th file ...
+Reading IDs of the GRM from [binMAF0.01-MAF0.1.grm.id].
+7370 IDs read from [binMAF0.01-MAF0.1.grm.id].
+Reading the GRM from [binMAF0.01-MAF0.1.grm.bin].
+Pairwise genetic relationships between 7370 individuals are included from [binMAF0.01-MAF0.1.grm.bin].
+Reading the GRM from the 3th file ...
+Reading IDs of the GRM from [bin0.1_0.2.grm.id].
+7370 IDs read from [bin0.1_0.2.grm.id].
+Reading the GRM from [bin0.1_0.2.grm.bin].
+Pairwise genetic relationships between 7370 individuals are included from [bin0.1_0.2.grm.bin].
+Reading the GRM from the 4th file ...
+Reading IDs of the GRM from [bin0.2_0.3.grm.id].
+7370 IDs read from [bin0.2_0.3.grm.id].
+Reading the GRM from [bin0.2_0.3.grm.bin].
+Pairwise genetic relationships between 7370 individuals are included from [bin0.2_0.3.grm.bin].
+Reading the GRM from the 5th file ...
+Reading IDs of the GRM from [bin0.3_0.4.grm.id].
+7370 IDs read from [bin0.3_0.4.grm.id].
+Reading the GRM from [bin0.3_0.4.grm.bin].
+Pairwise genetic relationships between 7370 individuals are included from [bin0.3_0.4.grm.bin].
+Reading the GRM from the 6th file ...
+Reading IDs of the GRM from [bin0.4_0.5.grm.id].
+7370 IDs read from [bin0.4_0.5.grm.id].
+Reading the GRM from [bin0.4_0.5.grm.bin].
+Pairwise genetic relationships between 7370 individuals are included from [bin0.4_0.5.grm.bin].
+7188 individuals are in common in these files.
+
+Performing  REML analysis ... (Note: may take hours depending on sample size).
+7188 observations, 1 fixed effect(s), and 7 variance component(s)(including residual variance).
+Calculating prior values of variance components by EM-REML ...
+Updated prior values: 0.148677 0.147687  0.14677 0.146559 0.146399 0.146201 0.148851
+logL: -3781.56
+Running AI-REML algorithm ...
+Iter.	logL	V(G1)	V(G2)	V(G3)	V(G4)	V(G5)	V(G6)	V(e)	
+1	-3778.10	0.15959	0.08373	0.09692	0.10800	0.10888	0.10430	0.34843	
+2	-3722.11	0.16692	0.03875	0.06285	0.08130	0.08247	0.07764	0.49409	
+3	-3693.80	0.17199	0.00835	0.04000	0.06296	0.06403	0.06063	0.59683	
+4	-3680.06	0.17366	0.00000	0.02289	0.04844	0.04926	0.04780	0.66565	(1 component(s) constrained)
+5	-3673.39	0.17397	0.00000	0.01074	0.03760	0.03818	0.03858	0.71182	(1 component(s) constrained)
+6	-3670.38	0.17423	0.00000	0.00282	0.03017	0.03055	0.03252	0.74333	(1 component(s) constrained)
+7	-3669.14	0.17447	0.00000	0.00040	0.02504	0.02529	0.02853	0.76472	(1 component(s) constrained)
+8	-3668.67	0.17390	0.00000	0.00000	0.02071	0.02085	0.02508	0.77856	(2 component(s) constrained)
+9	-3668.55	0.17267	0.00000	0.00000	0.01113	0.01103	0.01768	0.80807	(2 component(s) constrained)
+10	-3668.79	0.17316	0.00000	0.00000	0.01091	0.01080	0.01795	0.80762	(2 component(s) constrained)
+11	-3668.80	0.17315	0.00000	0.00000	0.01088	0.01078	0.01797	0.80766	(2 component(s) constrained)
+Log-likelihood ratio converged.
+
+Summary result of REML analysis:
+Source	Variance	SE
+V(G1)	0.173147	0.094029
+V(G2)	0.000001	0.048189
+V(G3)	0.000001	0.032630
+V(G4)	0.010883	0.031357
+V(G5)	0.010781	0.030232
+V(G6)	0.017971	0.025556
+V(e)	0.807659	0.098657
+Vp	1.020444	0.017032
+V(G1)/Vp	0.169678	0.092025
+V(G2)/Vp	0.000001	0.047224
+V(G3)/Vp	0.000001	0.031977
+V(G4)/Vp	0.010665	0.030729
+V(G5)/Vp	0.010565	0.029626
+V(G6)/Vp	0.017611	0.025041
+
+Sum of V(G)/Vp	0.208521	0.096240
+
+Sampling variance/covariance of the estimates of variance components:
+0.00884144	-0.00077582	-6.91419e-05	-6.97927e-05	-2.23484e-05	-3.18754e-05	-0.00777984	
+-0.00077582	0.00232221	-0.000310768	-8.70659e-05	-4.24061e-05	-8.82809e-05	-0.00100531	
+-6.91419e-05	-0.000310768	0.00106473	-0.000250436	-9.9544e-05	-6.16922e-05	-0.000272624	
+-6.97927e-05	-8.70659e-05	-0.000250436	0.00098328	-0.000257998	-0.000103421	-0.000211377	
+-2.23484e-05	-4.24061e-05	-9.9544e-05	-0.000257998	0.000913961	-0.000277806	-0.000210609	
+-3.18754e-05	-8.82809e-05	-6.16922e-05	-0.000103421	-0.000277806	0.000653114	-8.27833e-05	
+-0.00777984	-0.00100531	-0.000272624	-0.000211377	-0.000210609	-8.27833e-05	0.00973325	
+
+Summary result of REML analysis has been saved in the file [eysenck_E_6bin_new.hsq].
+
+Analysis finished: Mon May  1 15:47:50 2017
+Computational time: 0:3:59
+*******************************************************************
+* Genome-wide Complex Trait Analysis (GCTA)
+* version 1.24.7
+* (C) 2010-2013 Jian Yang, Hong Lee, Michael Goddard and Peter Visscher
+* The University of Queensland
+* MIT License
+*******************************************************************
+Analysis started: Mon May  1 15:47:50 2017
+
+Options:
+--mgrm 6bins
+--reml
+--pheno eysenck_N.phen
+--reml-no-lrt
+--out eysenck_N_6bin_new
+
+Note: This is a multi-thread program. You could specify the number of threads by the --thread-num option to speed up the computation if there are multiple processors in your machine.
+
+Reading phenotypes from [eysenck_N.phen].
+Non-missing phenotypes of 19914 individuals are included from [eysenck_N.phen].
+
+There are 6 GRM file names specified in the file [6bins].
+Reading the GRM from the 1th file ...
+Reading IDs of the GRM from [binMAF0.001-MAF0.01.grm.id].
+7370 IDs read from [binMAF0.001-MAF0.01.grm.id].
+Reading the GRM from [binMAF0.001-MAF0.01.grm.bin].
+Pairwise genetic relationships between 7370 individuals are included from [binMAF0.001-MAF0.01.grm.bin].
+Reading the GRM from the 2th file ...
+Reading IDs of the GRM from [binMAF0.01-MAF0.1.grm.id].
+7370 IDs read from [binMAF0.01-MAF0.1.grm.id].
+Reading the GRM from [binMAF0.01-MAF0.1.grm.bin].
+Pairwise genetic relationships between 7370 individuals are included from [binMAF0.01-MAF0.1.grm.bin].
+Reading the GRM from the 3th file ...
+Reading IDs of the GRM from [bin0.1_0.2.grm.id].
+7370 IDs read from [bin0.1_0.2.grm.id].
+Reading the GRM from [bin0.1_0.2.grm.bin].
+Pairwise genetic relationships between 7370 individuals are included from [bin0.1_0.2.grm.bin].
+Reading the GRM from the 4th file ...
+Reading IDs of the GRM from [bin0.2_0.3.grm.id].
+7370 IDs read from [bin0.2_0.3.grm.id].
+Reading the GRM from [bin0.2_0.3.grm.bin].
+Pairwise genetic relationships between 7370 individuals are included from [bin0.2_0.3.grm.bin].
+Reading the GRM from the 5th file ...
+Reading IDs of the GRM from [bin0.3_0.4.grm.id].
+7370 IDs read from [bin0.3_0.4.grm.id].
+Reading the GRM from [bin0.3_0.4.grm.bin].
+Pairwise genetic relationships between 7370 individuals are included from [bin0.3_0.4.grm.bin].
+Reading the GRM from the 6th file ...
+Reading IDs of the GRM from [bin0.4_0.5.grm.id].
+7370 IDs read from [bin0.4_0.5.grm.id].
+Reading the GRM from [bin0.4_0.5.grm.bin].
+Pairwise genetic relationships between 7370 individuals are included from [bin0.4_0.5.grm.bin].
+7195 individuals are in common in these files.
+
+Performing  REML analysis ... (Note: may take hours depending on sample size).
+7195 observations, 1 fixed effect(s), and 7 variance component(s)(including residual variance).
+Calculating prior values of variance components by EM-REML ...
+Updated prior values: 0.144705 0.144181 0.143096 0.142946 0.142789 0.142873  0.14499
+logL: -3672.78
+Running AI-REML algorithm ...
+Iter.	logL	V(G1)	V(G2)	V(G3)	V(G4)	V(G5)	V(G6)	V(e)	
+1	-3670.05	0.09451	0.12060	0.08970	0.10764	0.10312	0.11737	0.35612	
+2	-3625.59	0.05637	0.10154	0.05366	0.08358	0.07625	0.09952	0.51335	
+3	-3602.91	0.02845	0.08690	0.02959	0.06733	0.05817	0.08711	0.62705	
+4	-3591.74	0.00848	0.07601	0.01355	0.05640	0.04602	0.07850	0.70768	
+5	-3586.35	0.00000	0.06715	0.00194	0.04815	0.03690	0.07159	0.76324	(1 component(s) constrained)
+6	-3583.61	0.00000	0.05839	0.00000	0.04025	0.02836	0.06443	0.79959	(2 component(s) constrained)
+7	-3582.35	0.00000	0.05180	0.00000	0.03467	0.02226	0.05918	0.82472	(2 component(s) constrained)
+8	-3581.91	0.00000	0.04709	0.00000	0.03092	0.01806	0.05549	0.84226	(2 component(s) constrained)
+9	-3581.80	0.00000	0.03643	0.00000	0.02290	0.00891	0.04730	0.88091	(2 component(s) constrained)
+10	-3582.16	0.00000	0.03547	0.00000	0.02297	0.00864	0.04668	0.88246	(2 component(s) constrained)
+11	-3582.19	0.00000	0.03539	0.00000	0.02297	0.00864	0.04665	0.88255	(2 component(s) constrained)
+12	-3582.19	0.00000	0.03539	0.00000	0.02297	0.00864	0.04665	0.88256	(2 component(s) constrained)
+Log-likelihood ratio converged.
+
+Summary result of REML analysis:
+Source	Variance	SE
+V(G1)	0.000001	0.087697
+V(G2)	0.035388	0.049446
+V(G3)	0.000001	0.032164
+V(G4)	0.022971	0.029099
+V(G5)	0.008637	0.029242
+V(G6)	0.046649	0.025581
+V(e)	0.882556	0.094925
+Vp	0.996202	0.016625
+V(G1)/Vp	0.000001	0.088031
+V(G2)/Vp	0.035523	0.049626
+V(G3)/Vp	0.000001	0.032287
+V(G4)/Vp	0.023058	0.029205
+V(G5)/Vp	0.008670	0.029354
+V(G6)/Vp	0.046827	0.025647
+
+Sum of V(G)/Vp	0.114080	0.094447
+
+Sampling variance/covariance of the estimates of variance components:
+0.00769075	-0.000751886	-6.66283e-05	-5.01874e-05	-2.15624e-05	1.4228e-05	-0.00680634	
+-0.000751886	0.00244489	-0.00032294	-9.72356e-05	-7.3555e-05	-2.30785e-05	-0.00115913	
+-6.66283e-05	-0.00032294	0.00103455	-0.000201862	-8.10272e-05	-7.22795e-05	-0.000284439	
+-5.01874e-05	-9.72356e-05	-0.000201862	0.000846752	-0.000238671	-6.86889e-05	-0.000180855	
+-2.15624e-05	-7.3555e-05	-8.10272e-05	-0.000238671	0.000855098	-0.000275947	-0.000163309	
+1.4228e-05	-2.30785e-05	-7.22795e-05	-6.86889e-05	-0.000275947	0.000654412	-0.000205025	
+-0.00680634	-0.00115913	-0.000284439	-0.000180855	-0.000163309	-0.000205025	0.00901078	
+
+Summary result of REML analysis has been saved in the file [eysenck_N_6bin_new.hsq].
+
+Analysis finished: Mon May  1 15:52:06 2017
+Computational time: 0:4:16
+*******************************************************************
+* Genome-wide Complex Trait Analysis (GCTA)
+* version 1.24.7
+* (C) 2010-2013 Jian Yang, Hong Lee, Michael Goddard and Peter Visscher
+* The University of Queensland
+* MIT License
+*******************************************************************
+Analysis started: Mon May  1 15:52:06 2017
+
+Options:
+--mgrm 6bins
+--reml
+--pheno g.phen
+--reml-no-lrt
+--out g_6bin_new
+
+Note: This is a multi-thread program. You could specify the number of threads by the --thread-num option to speed up the computation if there are multiple processors in your machine.
+
+Reading phenotypes from [g.phen].
+Non-missing phenotypes of 19451 individuals are included from [g.phen].
+
+There are 6 GRM file names specified in the file [6bins].
+Reading the GRM from the 1th file ...
+Reading IDs of the GRM from [binMAF0.001-MAF0.01.grm.id].
+7370 IDs read from [binMAF0.001-MAF0.01.grm.id].
+Reading the GRM from [binMAF0.001-MAF0.01.grm.bin].
+Pairwise genetic relationships between 7370 individuals are included from [binMAF0.001-MAF0.01.grm.bin].
+Reading the GRM from the 2th file ...
+Reading IDs of the GRM from [binMAF0.01-MAF0.1.grm.id].
+7370 IDs read from [binMAF0.01-MAF0.1.grm.id].
+Reading the GRM from [binMAF0.01-MAF0.1.grm.bin].
+Pairwise genetic relationships between 7370 individuals are included from [binMAF0.01-MAF0.1.grm.bin].
+Reading the GRM from the 3th file ...
+Reading IDs of the GRM from [bin0.1_0.2.grm.id].
+7370 IDs read from [bin0.1_0.2.grm.id].
+Reading the GRM from [bin0.1_0.2.grm.bin].
+Pairwise genetic relationships between 7370 individuals are included from [bin0.1_0.2.grm.bin].
+Reading the GRM from the 4th file ...
+Reading IDs of the GRM from [bin0.2_0.3.grm.id].
+7370 IDs read from [bin0.2_0.3.grm.id].
+Reading the GRM from [bin0.2_0.3.grm.bin].
+Pairwise genetic relationships between 7370 individuals are included from [bin0.2_0.3.grm.bin].
+Reading the GRM from the 5th file ...
+Reading IDs of the GRM from [bin0.3_0.4.grm.id].
+7370 IDs read from [bin0.3_0.4.grm.id].
+Reading the GRM from [bin0.3_0.4.grm.bin].
+Pairwise genetic relationships between 7370 individuals are included from [bin0.3_0.4.grm.bin].
+Reading the GRM from the 6th file ...
+Reading IDs of the GRM from [bin0.4_0.5.grm.id].
+7370 IDs read from [bin0.4_0.5.grm.id].
+Reading the GRM from [bin0.4_0.5.grm.bin].
+Pairwise genetic relationships between 7370 individuals are included from [bin0.4_0.5.grm.bin].
+7019 individuals are in common in these files.
+
+Performing  REML analysis ... (Note: may take hours depending on sample size).
+7019 observations, 1 fixed effect(s), and 7 variance component(s)(including residual variance).
+Calculating prior values of variance components by EM-REML ...
+Updated prior values: 0.149677 0.149168 0.148391 0.148274 0.148129 0.148104 0.149754
+logL: -3647.81
+Running AI-REML algorithm ...
+Iter.	logL	V(G1)	V(G2)	V(G3)	V(G4)	V(G5)	V(G6)	V(e)	
+1	-3646.50	0.16817	0.12554	0.10814	0.12228	0.12259	0.12465	0.26054	
+2	-3624.36	0.18308	0.10738	0.07948	0.10407	0.10631	0.10926	0.33946	
+3	-3613.48	0.19497	0.09379	0.05926	0.09131	0.09592	0.09913	0.39458	
+4	-3608.21	0.20433	0.08379	0.04503	0.08236	0.08929	0.09246	0.43256	
+5	-3605.69	0.21161	0.07651	0.03505	0.07608	0.08507	0.08805	0.45852	
+6	-3604.48	0.21719	0.07124	0.02804	0.07165	0.08239	0.08515	0.47617	
+7	-3603.91	0.22142	0.06745	0.02311	0.06853	0.08070	0.08322	0.48814	
+8	-3603.63	0.23150	0.05883	0.01216	0.06156	0.07736	0.07921	0.51375	
+9	-3603.38	0.23348	0.05795	0.01147	0.06103	0.07803	0.07954	0.51304	
+10	-3603.38	0.23356	0.05785	0.01142	0.06097	0.07805	0.07956	0.51313	
+11	-3603.38	0.23357	0.05784	0.01142	0.06096	0.07805	0.07957	0.51313	
+Log-likelihood ratio converged.
+
+Summary result of REML analysis:
+Source	Variance	SE
+V(G1)	0.233569	0.098372
+V(G2)	0.057841	0.054610
+V(G3)	0.011420	0.036706
+V(G4)	0.060963	0.035512
+V(G5)	0.078048	0.033941
+V(G6)	0.079568	0.030202
+V(e)	0.513133	0.102527
+Vp	1.034541	0.017613
+V(G1)/Vp	0.225771	0.094878
+V(G2)/Vp	0.055910	0.052761
+V(G3)/Vp	0.011039	0.035479
+V(G4)/Vp	0.058928	0.034281
+V(G5)/Vp	0.075442	0.032733
+V(G6)/Vp	0.076911	0.029098
+
+Sum of V(G)/Vp	0.503999	0.099440
+
+Sampling variance/covariance of the estimates of variance components:
+0.00967715	-0.000962746	-0.000101263	-9.86656e-05	-6.26614e-05	-2.78306e-05	-0.0082942	
+-0.000962746	0.00298223	-0.000423049	-7.22746e-05	-6.21292e-05	-0.000100801	-0.00132686	
+-0.000101263	-0.000423049	0.00134731	-0.000297202	-0.000136509	-6.23816e-05	-0.000320723	
+-9.86656e-05	-7.22746e-05	-0.000297202	0.00126113	-0.00032677	-0.000163285	-0.000265168	
+-6.26614e-05	-6.21292e-05	-0.000136509	-0.00032677	0.00115201	-0.000362228	-0.000155105	
+-2.78306e-05	-0.000100801	-6.23816e-05	-0.000163285	-0.000362228	0.000912132	-0.000144911	
+-0.0082942	-0.00132686	-0.000320723	-0.000265168	-0.000155105	-0.000144911	0.0105118	
+
+Summary result of REML analysis has been saved in the file [g_6bin_new.hsq].
+
+Analysis finished: Mon May  1 15:55:23 2017
+Computational time: 0:3:17
+*******************************************************************
+* Genome-wide Complex Trait Analysis (GCTA)
+* version 1.24.7
+* (C) 2010-2013 Jian Yang, Hong Lee, Michael Goddard and Peter Visscher
+* The University of Queensland
+* MIT License
+*******************************************************************
+Analysis started: Mon May  1 15:55:23 2017
+
+Options:
+--mgrm 6bins
+--reml
+--pheno TOTAL_LM.phen
+--reml-no-lrt
+--out TOTAL_LM_6bin_new
+
+Note: This is a multi-thread program. You could specify the number of threads by the --thread-num option to speed up the computation if there are multiple processors in your machine.
+
+Reading phenotypes from [TOTAL_LM.phen].
+Non-missing phenotypes of 19785 individuals are included from [TOTAL_LM.phen].
+
+There are 6 GRM file names specified in the file [6bins].
+Reading the GRM from the 1th file ...
+Reading IDs of the GRM from [binMAF0.001-MAF0.01.grm.id].
+7370 IDs read from [binMAF0.001-MAF0.01.grm.id].
+Reading the GRM from [binMAF0.001-MAF0.01.grm.bin].
+Pairwise genetic relationships between 7370 individuals are included from [binMAF0.001-MAF0.01.grm.bin].
+Reading the GRM from the 2th file ...
+Reading IDs of the GRM from [binMAF0.01-MAF0.1.grm.id].
+7370 IDs read from [binMAF0.01-MAF0.1.grm.id].
+Reading the GRM from [binMAF0.01-MAF0.1.grm.bin].
+Pairwise genetic relationships between 7370 individuals are included from [binMAF0.01-MAF0.1.grm.bin].
+Reading the GRM from the 3th file ...
+Reading IDs of the GRM from [bin0.1_0.2.grm.id].
+7370 IDs read from [bin0.1_0.2.grm.id].
+Reading the GRM from [bin0.1_0.2.grm.bin].
+Pairwise genetic relationships between 7370 individuals are included from [bin0.1_0.2.grm.bin].
+Reading the GRM from the 4th file ...
+Reading IDs of the GRM from [bin0.2_0.3.grm.id].
+7370 IDs read from [bin0.2_0.3.grm.id].
+Reading the GRM from [bin0.2_0.3.grm.bin].
+Pairwise genetic relationships between 7370 individuals are included from [bin0.2_0.3.grm.bin].
+Reading the GRM from the 5th file ...
+Reading IDs of the GRM from [bin0.3_0.4.grm.id].
+7370 IDs read from [bin0.3_0.4.grm.id].
+Reading the GRM from [bin0.3_0.4.grm.bin].
+Pairwise genetic relationships between 7370 individuals are included from [bin0.3_0.4.grm.bin].
+Reading the GRM from the 6th file ...
+Reading IDs of the GRM from [bin0.4_0.5.grm.id].
+7370 IDs read from [bin0.4_0.5.grm.id].
+Reading the GRM from [bin0.4_0.5.grm.bin].
+Pairwise genetic relationships between 7370 individuals are included from [bin0.4_0.5.grm.bin].
+7148 individuals are in common in these files.
+
+Performing  REML analysis ... (Note: may take hours depending on sample size).
+7148 observations, 1 fixed effect(s), and 7 variance component(s)(including residual variance).
+Calculating prior values of variance components by EM-REML ...
+Updated prior values: 0.147799 0.147155 0.146242 0.145905 0.145705 0.145685 0.148023
+logL: -3725.66
+Running AI-REML algorithm ...
+Iter.	logL	V(G1)	V(G2)	V(G3)	V(G4)	V(G5)	V(G6)	V(e)	
+1	-3722.82	0.13299	0.11276	0.10503	0.10990	0.10398	0.10992	0.33506	
+2	-3678.69	0.12264	0.08602	0.07565	0.08553	0.07635	0.08527	0.47334	
+3	-3656.16	0.11610	0.06589	0.05505	0.06902	0.05803	0.06829	0.57271	
+4	-3644.97	0.11247	0.05105	0.04073	0.05784	0.04581	0.05658	0.64269	
+5	-3639.50	0.11080	0.04025	0.03081	0.05024	0.03761	0.04849	0.69130	
+6	-3636.85	0.11036	0.03244	0.02394	0.04506	0.03208	0.04289	0.72478	
+7	-3635.57	0.11061	0.02681	0.01918	0.04152	0.02833	0.03900	0.74770	
+8	-3634.96	0.11118	0.02277	0.01588	0.03910	0.02578	0.03630	0.76336	
+9	-3634.66	0.11337	0.01358	0.00862	0.03385	0.02030	0.03034	0.79710	
+10	-3634.39	0.11556	0.01256	0.00836	0.03378	0.02032	0.03004	0.79667	
+11	-3634.39	0.11569	0.01245	0.00834	0.03376	0.02033	0.03003	0.79669	
+12	-3634.39	0.11570	0.01244	0.00834	0.03376	0.02033	0.03003	0.79670	
+Log-likelihood ratio converged.
+
+Summary result of REML analysis:
+Source	Variance	SE
+V(G1)	0.115699	0.094407
+V(G2)	0.012435	0.051376
+V(G3)	0.008344	0.034689
+V(G4)	0.033761	0.032942
+V(G5)	0.020330	0.031195
+V(G6)	0.030034	0.026508
+V(e)	0.796695	0.099772
+Vp	1.017299	0.017042
+V(G1)/Vp	0.113732	0.092749
+V(G2)/Vp	0.012224	0.050501
+V(G3)/Vp	0.008202	0.034099
+V(G4)/Vp	0.033187	0.032367
+V(G5)/Vp	0.019984	0.030659
+V(G6)/Vp	0.029524	0.026042
+
+Sum of V(G)/Vp	0.216852	0.097653
+
+Sampling variance/covariance of the estimates of variance components:
+0.00891268	-0.000802438	-0.000130286	-0.000106231	-1.18898e-05	-5.38973e-05	-0.00774712	
+-0.000802438	0.00263946	-0.000363637	-7.6786e-05	-6.08826e-05	-7.24687e-05	-0.00125648	
+-0.000130286	-0.000363637	0.00120334	-0.000272174	-0.000104365	-6.1984e-05	-0.000266479	
+-0.000106231	-7.6786e-05	-0.000272174	0.0010852	-0.000318652	-9.6522e-05	-0.000194927	
+-1.18898e-05	-6.08826e-05	-0.000104365	-0.000318652	0.000973157	-0.000271981	-0.000193651	
+-5.38973e-05	-7.24687e-05	-6.1984e-05	-9.6522e-05	-0.000271981	0.000702682	-0.000127392	
+-0.00774712	-0.00125648	-0.000266479	-0.000194927	-0.000193651	-0.000127392	0.0099544	
+
+Summary result of REML analysis has been saved in the file [TOTAL_LM_6bin_new.hsq].
+
+Analysis finished: Mon May  1 15:59:03 2017
+Computational time: 0:3:40
+*******************************************************************
+* Genome-wide Complex Trait Analysis (GCTA)
+* version 1.24.7
+* (C) 2010-2013 Jian Yang, Hong Lee, Michael Goddard and Peter Visscher
+* The University of Queensland
+* MIT License
+*******************************************************************
+Analysis started: Mon May  1 15:59:03 2017
+
+Options:
+--mgrm 6bins
+--reml
+--pheno verbal_total.phen
+--reml-no-lrt
+--out verbal_total_6bin_new
+
+Note: This is a multi-thread program. You could specify the number of threads by the --thread-num option to speed up the computation if there are multiple processors in your machine.
+
+Reading phenotypes from [verbal_total.phen].
+Non-missing phenotypes of 19800 individuals are included from [verbal_total.phen].
+
+There are 6 GRM file names specified in the file [6bins].
+Reading the GRM from the 1th file ...
+Reading IDs of the GRM from [binMAF0.001-MAF0.01.grm.id].
+7370 IDs read from [binMAF0.001-MAF0.01.grm.id].
+Reading the GRM from [binMAF0.001-MAF0.01.grm.bin].
+Pairwise genetic relationships between 7370 individuals are included from [binMAF0.001-MAF0.01.grm.bin].
+Reading the GRM from the 2th file ...
+Reading IDs of the GRM from [binMAF0.01-MAF0.1.grm.id].
+7370 IDs read from [binMAF0.01-MAF0.1.grm.id].
+Reading the GRM from [binMAF0.01-MAF0.1.grm.bin].
+Pairwise genetic relationships between 7370 individuals are included from [binMAF0.01-MAF0.1.grm.bin].
+Reading the GRM from the 3th file ...
+Reading IDs of the GRM from [bin0.1_0.2.grm.id].
+7370 IDs read from [bin0.1_0.2.grm.id].
+Reading the GRM from [bin0.1_0.2.grm.bin].
+Pairwise genetic relationships between 7370 individuals are included from [bin0.1_0.2.grm.bin].
+Reading the GRM from the 4th file ...
+Reading IDs of the GRM from [bin0.2_0.3.grm.id].
+7370 IDs read from [bin0.2_0.3.grm.id].
+Reading the GRM from [bin0.2_0.3.grm.bin].
+Pairwise genetic relationships between 7370 individuals are included from [bin0.2_0.3.grm.bin].
+Reading the GRM from the 5th file ...
+Reading IDs of the GRM from [bin0.3_0.4.grm.id].
+7370 IDs read from [bin0.3_0.4.grm.id].
+Reading the GRM from [bin0.3_0.4.grm.bin].
+Pairwise genetic relationships between 7370 individuals are included from [bin0.3_0.4.grm.bin].
+Reading the GRM from the 6th file ...
+Reading IDs of the GRM from [bin0.4_0.5.grm.id].
+7370 IDs read from [bin0.4_0.5.grm.id].
+Reading the GRM from [bin0.4_0.5.grm.bin].
+Pairwise genetic relationships between 7370 individuals are included from [bin0.4_0.5.grm.bin].
+7144 individuals are in common in these files.
+
+Performing  REML analysis ... (Note: may take hours depending on sample size).
+7144 observations, 1 fixed effect(s), and 7 variance component(s)(including residual variance).
+Calculating prior values of variance components by EM-REML ...
+Updated prior values: 0.151103 0.150432 0.149784 0.149138 0.149061 0.148949 0.151184
+logL: -3777.17
+Running AI-REML algorithm ...
+Iter.	logL	V(G1)	V(G2)	V(G3)	V(G4)	V(G5)	V(G6)	V(e)	
+1	-3774.91	0.17312	0.11718	0.13020	0.10081	0.11804	0.10960	0.28628	
+2	-3739.34	0.19012	0.09179	0.11486	0.06854	0.09845	0.08322	0.38424	
+3	-3721.74	0.20310	0.07292	0.10333	0.04695	0.08600	0.06546	0.45374	
+4	-3713.20	0.21292	0.05914	0.09490	0.03240	0.07805	0.05342	0.50235	
+5	-3709.11	0.22029	0.04918	0.08883	0.02253	0.07297	0.04520	0.53605	
+6	-3707.15	0.22578	0.04204	0.08450	0.01579	0.06974	0.03954	0.55929	
+7	-3706.22	0.22986	0.03692	0.08144	0.01116	0.06770	0.03564	0.57526	
+8	-3705.78	0.23937	0.02537	0.07461	0.00104	0.06362	0.02706	0.60994	
+9	-3705.37	0.24090	0.02432	0.07422	0.00066	0.06441	0.02668	0.61004	
+10	-3705.37	0.24095	0.02421	0.07421	0.00063	0.06441	0.02669	0.61012	
+11	-3705.37	0.24096	0.02420	0.07421	0.00063	0.06441	0.02669	0.61013	
+Log-likelihood ratio converged.
+
+Summary result of REML analysis:
+Source	Variance	SE
+V(G1)	0.240960	0.097526
+V(G2)	0.024203	0.053741
+V(G3)	0.074214	0.036926
+V(G4)	0.000631	0.032966
+V(G5)	0.064411	0.032081
+V(G6)	0.026689	0.028414
+V(e)	0.610126	0.102612
+Vp	1.041233	0.017497
+V(G1)/Vp	0.231418	0.093436
+V(G2)/Vp	0.023244	0.051609
+V(G3)/Vp	0.071275	0.035401
+V(G4)/Vp	0.000606	0.031661
+V(G5)/Vp	0.061860	0.030758
+V(G6)/Vp	0.025632	0.027277
+
+Sum of V(G)/Vp	0.414035	0.098730
+
+Sampling variance/covariance of the estimates of variance components:
+0.00951134	-0.000837486	-0.000150796	-6.99002e-05	-3.07316e-05	-3.7056e-05	-0.00824984	
+-0.000837486	0.00288811	-0.000414451	-8.03133e-05	-7.38016e-05	-8.92063e-05	-0.00137935	
+-0.000150796	-0.000414451	0.00136354	-0.000269024	-0.000109992	-7.46115e-05	-0.00029959	
+-6.99002e-05	-8.03133e-05	-0.000269024	0.00108678	-0.000292924	-0.000142955	-0.000231743	
+-3.07316e-05	-7.38016e-05	-0.000109992	-0.000292924	0.00102922	-0.000308914	-0.000174998	
+-3.7056e-05	-8.92063e-05	-7.46115e-05	-0.000142955	-0.000308914	0.000807363	-0.000137064	
+-0.00824984	-0.00137935	-0.00029959	-0.000231743	-0.000174998	-0.000137064	0.0105293	
+
+Summary result of REML analysis has been saved in the file [verbal_total_6bin_new.hsq].
+
+Analysis finished: Mon May  1 16:02:26 2017
+Computational time: 0:3:23
+*******************************************************************
+* Genome-wide Complex Trait Analysis (GCTA)
+* version 1.24.7
+* (C) 2010-2013 Jian Yang, Hong Lee, Michael Goddard and Peter Visscher
+* The University of Queensland
+* MIT License
+*******************************************************************
+Analysis started: Mon May  1 16:02:26 2017
+
+Options:
+--mgrm 6bins
+--reml
+--pheno vocabulary.phen
+--reml-no-lrt
+--out vocabulary_6bin_new
+
+Note: This is a multi-thread program. You could specify the number of threads by the --thread-num option to speed up the computation if there are multiple processors in your machine.
+
+Reading phenotypes from [vocabulary.phen].
+Non-missing phenotypes of 19686 individuals are included from [vocabulary.phen].
+
+There are 6 GRM file names specified in the file [6bins].
+Reading the GRM from the 1th file ...
+Reading IDs of the GRM from [binMAF0.001-MAF0.01.grm.id].
+7370 IDs read from [binMAF0.001-MAF0.01.grm.id].
+Reading the GRM from [binMAF0.001-MAF0.01.grm.bin].
+Pairwise genetic relationships between 7370 individuals are included from [binMAF0.001-MAF0.01.grm.bin].
+Reading the GRM from the 2th file ...
+Reading IDs of the GRM from [binMAF0.01-MAF0.1.grm.id].
+7370 IDs read from [binMAF0.01-MAF0.1.grm.id].
+Reading the GRM from [binMAF0.01-MAF0.1.grm.bin].
+Pairwise genetic relationships between 7370 individuals are included from [binMAF0.01-MAF0.1.grm.bin].
+Reading the GRM from the 3th file ...
+Reading IDs of the GRM from [bin0.1_0.2.grm.id].
+7370 IDs read from [bin0.1_0.2.grm.id].
+Reading the GRM from [bin0.1_0.2.grm.bin].
+Pairwise genetic relationships between 7370 individuals are included from [bin0.1_0.2.grm.bin].
+Reading the GRM from the 4th file ...
+Reading IDs of the GRM from [bin0.2_0.3.grm.id].
+7370 IDs read from [bin0.2_0.3.grm.id].
+Reading the GRM from [bin0.2_0.3.grm.bin].
+Pairwise genetic relationships between 7370 individuals are included from [bin0.2_0.3.grm.bin].
+Reading the GRM from the 5th file ...
+Reading IDs of the GRM from [bin0.3_0.4.grm.id].
+7370 IDs read from [bin0.3_0.4.grm.id].
+Reading the GRM from [bin0.3_0.4.grm.bin].
+Pairwise genetic relationships between 7370 individuals are included from [bin0.3_0.4.grm.bin].
+Reading the GRM from the 6th file ...
+Reading IDs of the GRM from [bin0.4_0.5.grm.id].
+7370 IDs read from [bin0.4_0.5.grm.id].
+Reading the GRM from [bin0.4_0.5.grm.bin].
+Pairwise genetic relationships between 7370 individuals are included from [bin0.4_0.5.grm.bin].
+7102 individuals are in common in these files.
+
+Performing  REML analysis ... (Note: may take hours depending on sample size).
+7102 observations, 1 fixed effect(s), and 7 variance component(s)(including residual variance).
+Calculating prior values of variance components by EM-REML ...
+Updated prior values: 0.149455 0.148903 0.148472 0.148194 0.148277 0.147957 0.149611
+logL: -3675.54
+Running AI-REML algorithm ...
+Iter.	logL	V(G1)	V(G2)	V(G3)	V(G4)	V(G5)	V(G6)	V(e)	
+1	-3674.47	0.14011	0.10551	0.12770	0.11776	0.14008	0.11553	0.28534	
+2	-3654.72	0.13522	0.07494	0.11295	0.09713	0.13472	0.09441	0.38000	
+3	-3645.26	0.13333	0.05371	0.10259	0.08314	0.13127	0.08056	0.44463	
+4	-3640.80	0.13325	0.03908	0.09537	0.07363	0.12910	0.07141	0.48816	
+5	-3638.73	0.13410	0.02901	0.09036	0.06714	0.12775	0.06533	0.51720	
+6	-3637.77	0.13535	0.02210	0.08690	0.06271	0.12693	0.06127	0.53646	
+7	-3637.32	0.13949	0.00706	0.07934	0.05310	0.12539	0.05266	0.57673	
+8	-3636.94	0.14274	0.00682	0.07924	0.05302	0.12593	0.05295	0.57334	
+9	-3636.94	0.14266	0.00675	0.07924	0.05300	0.12590	0.05295	0.57355	
+10	-3636.94	0.14267	0.00675	0.07924	0.05300	0.12590	0.05295	0.57353	
+Log-likelihood ratio converged.
+
+Summary result of REML analysis:
+Source	Variance	SE
+V(G1)	0.142671	0.094912
+V(G2)	0.006753	0.050830
+V(G3)	0.079238	0.036688
+V(G4)	0.052998	0.035027
+V(G5)	0.125904	0.034695
+V(G6)	0.052952	0.029701
+V(e)	0.573533	0.098582
+Vp	1.034048	0.017536
+V(G1)/Vp	0.137973	0.091717
+V(G2)/Vp	0.006530	0.049156
+V(G3)/Vp	0.076629	0.035409
+V(G4)/Vp	0.051253	0.033839
+V(G5)/Vp	0.121759	0.033353
+V(G6)/Vp	0.051208	0.028683
+
+Sum of V(G)/Vp	0.445352	0.095547
+
+Sampling variance/covariance of the estimates of variance components:
+0.0090083	-0.000907216	-8.03988e-05	-8.81466e-05	-8.80445e-05	-4.85261e-05	-0.00772485	
+-0.000907216	0.00258368	-0.000358187	-0.000110047	-6.78636e-05	-6.49636e-05	-0.00107409	
+-8.03988e-05	-0.000358187	0.00134604	-0.000292334	-0.000125592	-7.34835e-05	-0.000368963	
+-8.81466e-05	-0.000110047	-0.000292334	0.00122692	-0.000312986	-0.000163794	-0.000227153	
+-8.80445e-05	-6.78636e-05	-0.000125592	-0.000312986	0.00120371	-0.000377295	-0.000154806	
+-4.85261e-05	-6.49636e-05	-7.34835e-05	-0.000163794	-0.000377295	0.000882152	-0.000122101	
+-0.00772485	-0.00107409	-0.000368963	-0.000227153	-0.000154806	-0.000122101	0.0097184	
+
+Summary result of REML analysis has been saved in the file [vocabulary_6bin_new.hsq].
+
+Analysis finished: Mon May  1 16:05:48 2017
+Computational time: 0:3:22
