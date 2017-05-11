@@ -10,7 +10,7 @@ bibliography: packrat_bibliography.bibtex
 csl: apa-custom-no-issue.csl
 pagetitle: "Genomic analysis of family data reveals additional genetic effects on intelligence and personality"
 nocite: | 
-  @R @packrat @rmarkdown @formr @ggplot2 @dplyr @pander @readr @stringr @DT @tidyr @openxlsx
+  @R @packrat @dplyr @ggplot2 @readxl @stringr @msm @readr @rmarkdown @formr @pander @DT @tidyr @openxlsx
 ---
 
 <style>
@@ -36,8 +36,9 @@ library(dplyr)
 library(pander)
 library(readr)
 library(stringr)
-files = list.files(path = "../Pedigree variants/Output/", pattern = ".hsq$", recursive = T, full.names = F)
+files = list.files(path = "data/Output/", pattern = ".hsq$", recursive = T, full.names = F)
 options(digits = 3)
+gremlms = readRDS("data/gremlms.rds")
 
 files = na.omit(str_match(files, pattern = "(.+?)/(.+?)/(.+?)\\_model\\.hsq"))
 files = data.frame(files) 
@@ -83,6 +84,7 @@ for (i in seq_along(1:nrow(files))) {
 	if (files[i, 3] != last) {
 		model_comparisons = tbl_df(data.frame(model = character(0), logL = double(0)))
 		cat("\n\n\n### ",files[i, ]$Domain,": " ,files[i, ]$Phenotype, " {.tab-content}\n\n\n", sep = "")
+		cat("\n\n\n#### GREML-KIN {.tab-content}\n\n\n")
 		last = files[i, ]$Phenotype
 	}
 	curfile = files[i, ]
@@ -113,7 +115,7 @@ for (i in seq_along(1:nrow(files))) {
 	components = components %>% bind_rows(components %>% mutate(Source = paste0(Source, "/Vp"), Component = paste0(Component, "%")))
 	model = model %>% left_join(components, by = "Source") %>% mutate(Component = ifelse(is.na(Component), Source, Component)) %>% select(Component, Variance, SE)
 	
-	cat("\n\n\n#### ",files[i, ]$Model,"\n\n\n")
+	cat("\n\n\n##### ",files[i, ]$Model,"\n\n\n")
 	model %>%
 		mutate(Variance = round(Variance, 2),
 					 SE = round(SE, 3)) %>%
@@ -173,6 +175,32 @@ for (i in seq_along(1:nrow(files))) {
 			model_comparisons %>% arrange(logL) %>% 
 				# mutate(`D (likelihood ratio)` = 2 * (logL - lag(logL))) %>%
 			pander() %>% cat()
+			
+			cat("\n\n\n#### GREML-MS {.tab-content}\n\n\n")
+			
+			cat("<div style='float:right'>")
+
+			print(
+			 ggplot(gremlms %>% filter(trait_old == 'g'),aes(x = Phenotypes, y = Variance,fill = Source)) +
+			geom_col(width = barwidth, alpha = 1) +
+			geom_linerange(aes(ymin = if_else(Variance - Standard.Error < 0, 0, Variance - Standard.Error), ymax = Variance + Standard.Error),
+										 position = position_dodge(width = barwidth),stat = "identity") +
+			theme_bw() +
+			blank_facets2 +
+			ggtitle("Genetic contributions by minor allele frequency (MAF)") +
+			# scale_fill_brewer("MAF bin", palette = 1, direction = 1) +
+			scale_fill_manual("MAF bin", values = c(
+				"0.001-0.01 (3 898 626 SNPs)"  = "#08306B",
+				"0.01-0.1 (3 320 146 SNPs)" = "#08519C",
+				"0.1-0.2 (1 413 929 SNPs)" = "#2171B5",
+				"0.2-0.3 (1 061 603 SNPs)"  = "#4292C6",
+				"0.3-0.4 (930 841 SNPs)"  = "#6BAED6",
+				"0.4-0.5 (872 346 SNPs)"  = "#9ECAE1"))	+
+			scale_y_continuous("Variance explained %", breaks=c(0,10,20,30,40,50,60,70,80,90,100))+
+			scale_x_discrete("") +
+			theme(	legend.position=c(0.5, 0.5))
+				)
+			cat("</div>")
 		}
 	}
 	cat("\n\n\n\\newpage\n\n\n")
@@ -210,7 +238,7 @@ models = models %>% rename(
 datatable(models, filter = 'top', options = list(
   pageLength = 50, autoWidth = TRUE
 ), rownames = F)
-save(models, file = "models.rdata")
+save(models, file = "data/models.rdata")
 ```
 
 <div style="clear:both"></div>

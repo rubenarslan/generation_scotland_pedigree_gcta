@@ -6,7 +6,7 @@ library(readr)
 library(stringr)
 library(tidyr)
 library(openxlsx)
-load("models.rdata")
+load("data/models.rdata")
 
 str(models)
 models_long = models %>% gather(key, value)
@@ -55,4 +55,4 @@ for (sheetnr in 1:length(all_model_tables)) {
 	setHeaderFooter(workbook, sheet = sheetnr,
 		header = c("","Results of variance component analyses using all models on the GS20K", ""))
 }
-saveWorkbook(workbook, "model_tables.xlsx", overwrite = TRUE)
+saveWorkbook(workbook, "data/model_tables.xlsx", overwrite = TRUE)
