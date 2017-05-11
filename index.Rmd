@@ -25,9 +25,11 @@ float:left
 
 A graphical overview of all models fitted to data from the Generation Scotland: Scottish Family Health Study. Choose a phenotype, and compare the models.
 
-__Abbreviations for the matrices:__ _G_: Common genetic. _K_: Pedigree genetic. _F_: Family. _S_: Sibling. _C_: Couple.
+__Abbreviations for the matrices:__ _G:_ Common genetic. _K:_ Pedigree genetic. _F:_ Family. _S:_ Sibling. _C:_ Couple.
 
-__Other abbreviations__: _g_: general factor of intelligence. _logL_: log-likelihood for this model. _n_: sample size for this model. _SE_: Standard errors for the percentage explained by a component.
+__Methods:__ _GREML-KIN:_ our method including related individuals, adjusting for shared environment. _GREML-MS:_ GREML stratified by minor allele frequency bin.
+
+__Other abbreviations:__ _g:_ general factor of intelligence. _logL:_ log-likelihood for this model. _n:_ sample size for this model. _SE:_ Standard errors for the percentage explained by a component. _MAF:_ Minor allele frequency.
 
 ```{r results='asis', warning=F,message=F,echo=FALSE,fig.width=5,fig.height=5}
 library(formr)
@@ -38,7 +40,24 @@ library(readr)
 library(stringr)
 files = list.files(path = "data/Output/", pattern = ".hsq$", recursive = T, full.names = F)
 options(digits = 3)
-gremlms = readRDS("data/gremlms.rds")
+gremlms = readRDS("data/gremlms.rds") %>% mutate(Trait = recode(Trait,
+				 	"italic(g)" = "g", 
+				 	"Digit~Symbol~Test" = "Digit Symbol Test", 
+				 	"Verbal~Fluency" = "Verbal Fluency", 
+				 	"Logical~Memory" = "Logical Memory"))
+blank_facets2 = theme(
+	strip.text.y = element_text(colour='black', size = 25),
+	panel.grid.major.x = element_blank(),
+	axis.line.x = element_line(colour = "black"),
+	axis.line.y = element_line(colour = "black"),
+	panel.background = element_rect(fill = "#FEFEFE", color = "#999999"),
+	panel.grid.major = element_blank(),
+	panel.grid.minor = element_blank(),
+	axis.title.x = element_text(face="bold", colour='black', size=15),
+	axis.title.y = element_text(face="bold", colour='black', size=15),
+	axis.text  = element_text(size=10, colour='black'),
+	plot.title = element_text(face="bold", size=22),
+	legend.key.size = unit(0.6,"cm"))
 
 files = na.omit(str_match(files, pattern = "(.+?)/(.+?)/(.+?)\\_model\\.hsq"))
 files = data.frame(files) 
@@ -171,23 +190,33 @@ for (i in seq_along(1:nrow(files))) {
 	
 	if (i == NROW(files) || files[i+1, 3] != last) {
 		if (last != F) {
-			cat("\n\n\\newpage\n\n#### Model comparison\n\n\n")
+			cat("\n\n\\newpage\n\n##### Model comparison\n\n\n")
 			model_comparisons %>% arrange(logL) %>% 
 				# mutate(`D (likelihood ratio)` = 2 * (logL - lag(logL))) %>%
 			pander() %>% cat()
 			
 			cat("\n\n\n#### GREML-MS {.tab-content}\n\n\n")
+			trait_gremlms = gremlms[gremlms$Trait == files[i, 3],]
 			
+			trait_gremlms %>%
+		mutate(Variance = round(Variance, 2),
+					 SE = round(Standard.Error, 3)) %>%
+		filter(Bin != "Total") %>% 
+		rename(Value = Variance, `MAF Bin` = Bin) %>%
+		select(`MAF Bin`, Value, SE) %>% 
+		pander() %>% 
+		cat()
 			cat("<div style='float:right'>")
 
+		trait_gremlms$Phenotypes = factor(trait_gremlms$Bin, c("Total", "0.001-0.01", "0.01-0.1", "0.1-0.2", "0.2-0.3", "0.3-0.4", "0.4-0.5"))
+
 			print(
-			 ggplot(gremlms %>% filter(trait_old == 'g'),aes(x = Phenotypes, y = Variance,fill = Source)) +
-			geom_col(width = barwidth, alpha = 1) +
+			 ggplot(trait_gremlms,aes(x = Phenotypes, y = Variance,fill = Source)) +
+			geom_col(width = 0.7, alpha = 1) +
 			geom_linerange(aes(ymin = if_else(Variance - Standard.Error < 0, 0, Variance - Standard.Error), ymax = Variance + Standard.Error),
-										 position = position_dodge(width = barwidth),stat = "identity") +
+										 position = position_dodge(width = 0.7),stat = "identity") +
 			theme_bw() +
 			blank_facets2 +
-			ggtitle("Genetic contributions by minor allele frequency (MAF)") +
 			# scale_fill_brewer("MAF bin", palette = 1, direction = 1) +
 			scale_fill_manual("MAF bin", values = c(
 				"0.001-0.01 (3 898 626 SNPs)"  = "#08306B",
@@ -195,10 +224,11 @@ for (i in seq_along(1:nrow(files))) {
 				"0.1-0.2 (1 413 929 SNPs)" = "#2171B5",
 				"0.2-0.3 (1 061 603 SNPs)"  = "#4292C6",
 				"0.3-0.4 (930 841 SNPs)"  = "#6BAED6",
-				"0.4-0.5 (872 346 SNPs)"  = "#9ECAE1"))	+
-			scale_y_continuous("Variance explained %", breaks=c(0,10,20,30,40,50,60,70,80,90,100))+
-			scale_x_discrete("") +
-			theme(	legend.position=c(0.5, 0.5))
+				"0.4-0.5 (872 346 SNPs)"  = "#9ECAE1"), guide = F)	+
+			scale_y_continuous("Variance explained %", breaks=c(0,10,20,30,40,50,60,70,80,90,100), limits = c(0,100))+
+			scale_x_discrete("Minor allele frequency bin") +
+		coord_flip() + 
+			theme(	legend.position=c(0.5, 0.5) )
 				)
 			cat("</div>")
 		}
@@ -210,9 +240,11 @@ for (i in seq_along(1:nrow(files))) {
 ## All models
 In this interface model statistics can be sorted and filtered. The value column contains the percentage explained for each component, or the loglikelihood statistic or n respectively.
 
-__Abbreviations for the matrices:__ _G_: Common genetic. _K_: Pedigree genetic. _F_: Family. _S_: Sibling. _C_: Couple.
+__Abbreviations for the matrices:__ _G:_ Common genetic. _K:_ Pedigree genetic. _F:_ Family. _S:_ Sibling. _C:_ Couple.
 
-__Other abbreviations__: _g_: general factor of intelligence. _logL_: log-likelihood for this model. _n_: sample size for this model. _SE_: Standard errors for the percentage explained by a component.
+__Methods:__ _GREML-KIN:_ our method including related individuals, adjusting for shared environment. _GREML-MS:_ GREML stratified by minor allele frequency bin.
+
+__Other abbreviations:__ _g:_ general factor of intelligence. _logL:_ log-likelihood for this model. _n:_ sample size for this model. _SE:_ Standard errors for the percentage explained by a component. _MAF:_ Minor allele frequency.
 
 ```{r, warning=F,message=F,echo=FALSE}
 library(DT)

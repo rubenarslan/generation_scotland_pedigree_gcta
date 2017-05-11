@@ -20,7 +20,6 @@ x$Phenotypes = factor(paste0(x$Bin, " (", x$SNPs %>% format(big.mark = " ") %>% 
 																	 "0.2-0.3 (1 061 603 SNPs)", "0.3-0.4 (930 841 SNPs)", "0.4-0.5 (872 346 SNPs)"
 )))
 x$Source = x$Phenotypes
-saveRDS(x, file="data/gremlms.rds")
 
 x$Bin_thresh = as.numeric(stringr::str_split_fixed(x$Bin, "-", 2)[,2])
 #ymin = if_else(Variance - Standard.Error < 0, 0, Variance - Standard.Error)/100, ymax = (Variance + Standard.Error)/100
@@ -219,3 +218,5 @@ stack_dodge = ggplot(z %>% filter(trait_old == 'g'),aes(x = Phenotypes, y = Vari
 	theme(	legend.position=c(0.5, 0.5))
 stack_dodge
 ggsave(stack_dodge, filename = "maf_g.pdf", width = 10, height = 10*0.625)
+
+saveRDS(z, file="data/gremlms.rds")
