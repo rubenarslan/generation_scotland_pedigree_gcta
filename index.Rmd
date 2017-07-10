@@ -134,7 +134,7 @@ for (i in seq_along(1:nrow(files))) {
 	components = components %>% bind_rows(components %>% mutate(Source = paste0(Source, "/Vp"), Component = paste0(Component, "%")))
 	model = model %>% left_join(components, by = "Source") %>% mutate(Component = ifelse(is.na(Component), Source, Component)) %>% select(Component, Variance, SE)
 	
-	cat("\n\n\n##### ",files[i, ]$Model,"\n\n\n")
+	cat("\n\n\n##### ",files[i, ]$Model, if_else(files[i, ]$Model == "Selected", " {.active}", ""),"\n\n\n")
 	model %>%
 		mutate(Variance = round(Variance, 2),
 					 SE = round(SE, 3)) %>%
