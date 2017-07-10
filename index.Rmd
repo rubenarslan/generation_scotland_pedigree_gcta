@@ -123,7 +123,7 @@ for (i in seq_along(1:nrow(files))) {
 		}
 	}
 	components = poss_components[included_comps %contains% poss_components ]
-	if(length(components) > 1) {
+	if (length(components) > 1) {
 		sources = paste0("V(G", 1:length(components), ")")
 	} else if (length(components) == 1) {
 		sources = "V(G)"
@@ -156,29 +156,29 @@ for (i in seq_along(1:nrow(files))) {
 	std_vars2 = std_vars
 	std_vars2$Component2 = "Total"
 	std_vars2$SE = NA
-	std_vars = bind_rows(std_vars, std_vars2)
+	std_vars = bind_rows(std_vars, std_vars2 %>% filter(Component %in% c("G", "K")))
 	std_vars$Component = factor(std_vars$Component %>% 
 		recode(
 			"G" = "Common genetic",
 			"K" = "Pedigree genetic",
 			"F" = "Family",
 			"S" = "Sibling",
-			"C" = "Couple"), levels = rev(c("Common genetic", "Pedigree genetic", "Family", "Sibling", "Couple")))
-	std_vars$Component2 = factor(std_vars$Component2, levels = c("G", "K", "F", "S", "C", "Total"))
+			"C" = "Couple"), levels = rev(c("Pedigree genetic", "Common genetic", "Family", "Sibling", "Couple")))
+	std_vars$Component2 = factor(std_vars$Component2, levels = c("G","K", "F", "S", "C", "Total"))
 	cat("<div style='float:right'>")
 	print(
 	ggplot(std_vars, 
 				 aes(x = Component2, y = Variance * 100, fill = Component)) + 
 		geom_col(width = 0.5, alpha = 1) + 
-		geom_linerange(aes(ymax = (Variance + SE) * 100, ymin = ifelse(Variance - SE<=0, 0, Variance - SE) * 100)) + 
+		geom_linerange(aes(ymax = (Variance + SE) * 100, ymin = ifelse(Variance - SE<=0, 0, Variance - SE) * 100), na.rm = T) + 
 		coord_flip() + 
-		scale_fill_manual("Variance components", values = setNames(c("red2","red4","blue4","lightskyblue","blue2"), rev(levels(std_vars$Component))), drop = F) +
+		scale_fill_manual("Variance components", values = setNames(c("red4","red2","blue4","lightskyblue","blue2"), rev(levels(std_vars$Component))), drop = F) +
 		scale_x_discrete("Component", limits = rev(levels(std_vars$Component2)), drop = F) + 
 		theme_bw() + 
 		theme(panel.grid.major.y = element_blank(), panel.grid.minor.y = element_blank(),
 					legend.position = c(0.98,0.98),
 					legend.justification = c(1,1)) + 
-		scale_y_continuous("Variance explained %", limits = c(0,100))
+		scale_y_continuous("Variance explained %", limits = c(0,100), breaks = c(0,25,50,75,100))
 		)
 	cat("</div>")
 	
@@ -213,10 +213,10 @@ for (i in seq_along(1:nrow(files))) {
 			print(
 			 ggplot(trait_gremlms,aes(x = Phenotypes, y = Variance,fill = Source)) +
 			geom_col(width = 0.7, alpha = 1) +
-			geom_linerange(aes(ymin = if_else(Variance - Standard.Error < 0, 0, Variance - Standard.Error), ymax = Variance + Standard.Error),
+			geom_linerange(aes(ymin = if_else(Variance - Standard.Error < 0, 0, Variance - Standard.Error), ymax = Variance + Standard.Error),na.rm = T,
 										 position = position_dodge(width = 0.7),stat = "identity") +
 			theme_bw() +
-			blank_facets2 +
+			theme(panel.grid.major.y = element_blank(), panel.grid.minor.y = element_blank()) + 
 			# scale_fill_brewer("MAF bin", palette = 1, direction = 1) +
 			scale_fill_manual("MAF bin", values = c(
 				"0.001-0.01 (3 898 626 SNPs)"  = "#08306B",
@@ -225,10 +225,9 @@ for (i in seq_along(1:nrow(files))) {
 				"0.2-0.3 (1 061 603 SNPs)"  = "#4292C6",
 				"0.3-0.4 (930 841 SNPs)"  = "#6BAED6",
 				"0.4-0.5 (872 346 SNPs)"  = "#9ECAE1"), guide = F)	+
-			scale_y_continuous("Variance explained %", breaks=c(0,10,20,30,40,50,60,70,80,90,100), limits = c(0,100))+
+			scale_y_continuous("Variance explained %", limits = c(0,100), breaks = c(0,25,50,75,100))+
 			scale_x_discrete("Minor allele frequency bin") +
-		coord_flip() + 
-			theme(	legend.position=c(0.5, 0.5) )
+			coord_flip()
 				)
 			cat("</div>")
 		}

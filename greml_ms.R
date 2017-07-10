@@ -174,7 +174,7 @@ stack_dodge = ggplot(z,aes(x = Phenotypes, y = Variance,fill = Source)) +
 	coord_flip()
 stack_dodge
 
-ggsave(stack_dodge, filename = "maf_bins_nogridlines.pdf", width = 17.8, height = 17.8*0.625)
+ggsave(stack_dodge, filename = "plots/maf_bins_nogridlines.pdf", width = 17.8, height = 17.8*0.625)
 
 pas = function(x) {parse(text=x) }
 stack_dodge2 = ggplot(x,aes(x = Trait, y = Variance,fill = Phenotypes)) +
@@ -194,7 +194,7 @@ stack_dodge2 = ggplot(x,aes(x = Trait, y = Variance,fill = Phenotypes)) +
 	scale_x_discrete("", labels = pas)+
 	coord_flip()
 stack_dodge2
-ggsave(stack_dodge2, filename = "mafs.pdf", width = 17.8, height = 17.8*0.625)
+ggsave(stack_dodge2, filename = "plots/mafs.pdf", width = 17.8, height = 17.8*0.625)
 
 
 z$Phenotypes = factor(z$Bin, c("0.001-0.01", "0.01-0.1", "0.1-0.2", "0.2-0.3", "0.3-0.4", "0.4-0.5", "Total"))
@@ -217,6 +217,72 @@ stack_dodge = ggplot(z %>% filter(trait_old == 'g'),aes(x = Phenotypes, y = Vari
 	scale_x_discrete("") +
 	theme(	legend.position=c(0.5, 0.5))
 stack_dodge
-ggsave(stack_dodge, filename = "maf_g.pdf", width = 10, height = 10*0.625)
+ggsave(stack_dodge, filename = "plots/maf_g.pdf", width = 10, height = 10*0.625)
 
 saveRDS(z, file="data/gremlms.rds")
+
+
+
+simple_facets = theme(
+	strip.background = element_blank(),
+	strip.text.y = element_text(colour='black', size = 15, angle = 180, hjust = 1),
+	strip.placement = "outside",
+	strip.switch.pad.wrap	= unit(3, "mm"),
+	panel.spacing.y = unit(14, "mm"),
+	panel.spacing.x = unit(0, "mm"),
+	panel.grid.major.x = element_blank(),
+	axis.line.x = element_line(colour = "black"),
+	axis.line.y = element_line(colour = "black"),
+	panel.border = element_blank(),
+	panel.background = element_rect(fill = "#FEFEFE"),
+	panel.grid.major = element_blank(),
+	panel.grid.minor = element_blank(),
+	axis.title.x = element_text(face="bold", colour='black', size = 20),
+	axis.title.y = element_text(face="bold", colour='black', size = 20),
+	axis.text.x  = element_text(size = 20, colour='black'),
+	axis.text.y  = element_text(size = 14, colour='black'),
+	legend.position=c(0.87, 0.125),
+	legend.title = element_text(colour="black", size=20),
+	legend.text = element_text(colour="black", size =16),
+	plot.title = element_text(face="bold", size=22),
+	legend.key.size = unit(0.6,"cm"))
+
+
+z$Phenotype_short = factor(z$Bin, levels = c("Total", "0.001-0.01", "0.01-0.1", "0.1-0.2", "0.2-0.3", "0.3-0.4", "0.4-0.5"))
+
+stack_dodge = ggplot(z %>% filter(Trait %in% c("italic(g)", "Education", "Neuroticism", "Extraversion")),aes(x = Phenotype_short, y = Variance,fill = Source)) +
+	geom_col(width = barwidth, alpha = 1) +
+	geom_linerange(aes(ymin = if_else(Variance - Standard.Error < 0, 0, Variance - Standard.Error), ymax = Variance + Standard.Error),
+								 position = position_dodge(width = barwidth),stat = "identity") +
+	facet_wrap(~ Trait, strip.position = "left", ncol = 1, scales = "free_y", drop = T, labeller = label_parsed) +
+	theme_bw() +
+	simple_facets +
+	ggtitle("Genetic contributions to phenotypic variance by minor allele frequency (MAF)") +
+	scale_fill_manual("MAF bin", values = c(
+		"0.001-0.01 (3 898 626 SNPs)"  = "#08306B",
+		"0.01-0.1 (3 320 146 SNPs)" = "#08519C",
+		"0.1-0.2 (1 413 929 SNPs)" = "#2171B5",
+		"0.2-0.3 (1 061 603 SNPs)"  = "#4292C6",
+		"0.3-0.4 (930 841 SNPs)"  = "#6BAED6",
+		"0.4-0.5 (872 346 SNPs)"  = "#9ECAE1"), breaks = rev(c("0.001-0.01 (3 898 626 SNPs)", "0.01-0.1 (3 320 146 SNPs)","0.1-0.2 (1 413 929 SNPs)", "0.2-0.3 (1 061 603 SNPs)", "0.3-0.4 (930 841 SNPs)","0.4-0.5 (872 346 SNPs)")))	+
+
+	scale_y_continuous("Variance explained %", breaks = c(0,10,20,30,40,50,60,70,80,90,100)) +
+	scale_x_discrete("") +
+	coord_flip(ylim = c(3.5,53), expand = T)
+stack_dodge
+
+ggsave(stack_dodge, filename = "plots/maf_fewer_traits.pdf", width = 17.8, height = 17.8*0.625)
+
+
+thresh_plot = ggplot(by_thresh %>% filter(Trait %in% c("italic(g)", "Education", "Neuroticism", "Extraversion")),
+										 aes(Bin_thresh, Var_cum, ymin = Var_cum - se_cum, ymax = Var_cum + se_cum)) +
+	geom_point(position = position_dodge(width = 0.02)) +
+	geom_linerange(position = position_dodge(width = 0.02)) +
+	geom_abline(slope = 2, intercept = 0, color = "#888888") +
+	blank_facets2 +
+	facet_wrap(~ Trait, labeller = label_parsed) +
+	scale_y_continuous("Cumulative contribution to genetic variance", breaks = c(0, 0.2, 0.4, 0.6, 0.8, 1)) +
+	scale_x_continuous("MAF threshold", breaks = c(0.1, 0.2, 0.3, 0.4, 0.5)) +
+	coord_cartesian(ylim=c(0,1), xlim = c(0,0.55))
+thresh_plot
+ggsave(thresh_plot, filename = "fewer_traits_thresh_plot.pdf", width = 9.8, height = 9.8*0.625)
